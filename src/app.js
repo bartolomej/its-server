@@ -1,37 +1,57 @@
-const express = require('express');
-const path = require('path');
-const winston = require('winston');
-const morgan = require('morgan');
+const express = require('express')
+const path = require('path')
+const cors = require('cors')
+const typeorm = require('typeorm')
+const winston = require('winston')
+const morgan = require('morgan')
 
 require('dotenv').config({
   path: path.join(__dirname, '..', '.env')
-});
+})
 
-const app = express();
+const app = express()
 
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+typeorm.createConnection({
+  type: 'mysql',
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  synchronize: true,
+  logging: false,
+  entities: ['entities/*']
+}).then(() => {
+  // Enable CORS
+  app.use(cors())
 
-app.get('/', (req, res, next) => {
-  res.send('ITS server');
-});
+  app.use(morgan('dev'))
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: false }))
 
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-  res.status(404).send('404 error');
-});
+  app.get('/', (req, res, next) => {
+    res.send('ITS server')
+  })
 
-// error handler
-app.use((err, req, res, next) => {
-  res.send('error');
-});
+  // catch 404 and forward to error handler
+  app.use((req, res, next) => {
+    res.status(404).send('404 error')
+  })
 
-app.listen(process.env.PORT || 3000, error => {
-  if (error) {
-    console.error(error);
-    process.exit(1);
-    return;
-  }
-  console.log(`Server listening on port: ${process.env.PORT || 3000}`)
-});
+  // error handler
+  app.use((err, req, res, next) => {
+    res.send('error')
+  })
+
+  app.listen(process.env.PORT || 3000, error => {
+    if (error) {
+      console.error(error)
+      process.exit(1)
+      return
+    }
+    console.log(`Server listening on port: ${process.env.PORT || 3000}`)
+  })
+}).catch(error => {
+  console.log(error)
+  process.exit(1)
+})
