@@ -1,0 +1,25 @@
+{
+  "name": "its-server",
+  "version": "1.0.0",
+  "description": "ITS back end application.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bartolomej/its-server.git"
+  },
+  "author": "Bartolomej Kozorog, Jakob Drusany",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bartolomej/its-server/issues"
+  },
+  "homepage": "https://github.com/bartolomej/its-server#readme",
+  "dependencies": {
+    "dotenv": "8.1.0",
+    "express": "4.17.1",
+    "morgan": "1.9.1",
+    "winston": "3.2.1"
+  }
+}
