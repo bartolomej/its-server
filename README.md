@@ -22,6 +22,12 @@ DB_USER = <username>
 DB_PASSWORD = <password>
 DB_NAME = <name>
 
+// email config
+EMAIL_HOST = gmail
+EMAIL_SERVICE = gmail
+EMAIL_USER = <email>
+EMAIL_PASSWORD = <email-password>
+
 // app config
 PORT = <app-port>
 ```
