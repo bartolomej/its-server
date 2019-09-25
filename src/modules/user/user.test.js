@@ -5,7 +5,7 @@ require('dotenv').config({
   path: path.join(__dirname, '..', '..', '..', '.env')
 });
 
-const db = require('./repository');
+const db = require('./db/repository');
 const service = require('./service');
 const User = require('./User');
 
@@ -31,8 +31,9 @@ describe('User repository tests', function () {
       new Date(),
       'test@mail.com',
       'example.com',
-      'programming,design',
-      '/image/profile.png'
+      ['programming', 'design'],
+      '/image/profile.png',
+      'ACTIVE'
     );
 
     let savedUser = await db.save(user);
@@ -53,7 +54,7 @@ describe('User model tests', function () {
       new Date(),
       'test@mail.com',
       'example.com',
-      'programming,design',
+      ['programming', 'design'],
       '/image/profile.png'
     );
 
@@ -122,7 +123,7 @@ async function connectToDatabase () {
     synchronize: true,
     logging: false,
     entities: [
-      path.join(__dirname, 'UserSchema.js')
+      path.join(__dirname, 'db', 'UserSchema.js')
     ]
   });
 }

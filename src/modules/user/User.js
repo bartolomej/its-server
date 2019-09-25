@@ -1,17 +1,21 @@
 const uuid = require('uuid/v4');
 
 class User {
-  constructor (uid, username, birthDate, email, website, interests, profileImage) {
+  constructor (uid, username, birthDate, email, website, interests = [], avatar, status) {
     this.uid = uid;
     this.username = username;
     this.birthDate = birthDate;
     this.email = email;
     this.website = website;
-    this.interests = interests;
-    this.profileImage = profileImage;
+    this.interests = interests.join(',');
+    this.avatar = avatar;
+    this.status = status;
   }
 
-  static create (username, birthDate, email, website, interests, profileImage) {
+  static create (username, birthDate, email, website, interests, avatar) {
+    if (!interests instanceof Array) {
+      throw new Error('Interests is not an array');
+    }
     return new User(
       uuid(),
       username,
@@ -19,7 +23,8 @@ class User {
       email,
       website,
       interests,
-      profileImage
+      avatar,
+      'ACTIVE'
     )
   }
 

@@ -7,7 +7,7 @@ require('dotenv').config({
 
 const Email = require('./Email');
 const service = require('./service');
-const db = require('./repository');
+const db = require('./db/repository');
 
 
 describe('Email repository tests', function () {
@@ -79,7 +79,7 @@ async function connectToDatabase () {
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: [ path.join(__dirname, 'EmailSchema.js') ]
+    entities: [ path.join(__dirname, 'db', 'EmailSchema.js') ]
   })
 }
 

@@ -1,5 +1,5 @@
 const EntitySchema = require('typeorm').EntitySchema
-const Email = require('./Email')
+const Email = require('../Email')
 
 module.exports = new EntitySchema({
   name: 'Email',

@@ -1,9 +1,8 @@
 const getRepository = require('typeorm').getRepository;
-const { ConflictError } = require('../../errors');
+const { ConflictError } = require('../../../errors');
 
 module.exports.save = async function (user) {
-  return await getRepository("User")
-    .save(user)
+  return await getRepository("User").save(user)
     .catch(e => {
       if (e.code === 'ER_DUP_ENTRY') {
         let value = e.message.split("'")[1];
@@ -12,6 +11,7 @@ module.exports.save = async function (user) {
           'Please use a different value'
         );
       }
+      throw e;
     });
 };
 
@@ -20,4 +20,10 @@ module.exports.getByUid = async function (uid) {
     .createQueryBuilder("u")
     .where("u.uid = :uid", {uid})
     .getOne();
+}
+
+module.exports.getAll = async function () {
+  return await getRepository("User")
+  .createQueryBuilder("u")
+  .getMany();
 }

@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const template = require('./template');
 const Email = require('./Email');
-const db = require('./repository');
+const db = require('./db/repository');
 
 
 function transport () {
@@ -20,7 +20,7 @@ function transport () {
   });
 }
 
-module.exports.send = async function (toAddress, senderName, subject, text) {
+async function send (toAddress, senderName, subject, text) {
   const transporter = transport();
   const senderEmail = process.env.EMAIL_USER;
 
@@ -42,4 +42,8 @@ module.exports.send = async function (toAddress, senderName, subject, text) {
   transporter.sendMail(emailConfig);
 
   return await db.save(email);
+}
+
+module.exports = {
+  send
 }

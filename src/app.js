@@ -1,15 +1,13 @@
-const express = require('express')
-const path = require('path')
-const cors = require('cors')
-const typeorm = require('typeorm')
-const winston = require('winston')
-const morgan = require('morgan')
-
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
+const typeorm = require('typeorm');
+const morgan = require('morgan');
+const app = express();
 require('dotenv').config({
   path: path.join(__dirname, '..', '.env')
 })
 
-const app = express()
 
 typeorm.createConnection({
   type: 'mysql',
@@ -20,7 +18,11 @@ typeorm.createConnection({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: ['entities/*']
+  entities: [
+    path.join(__dirname, 'modules', 'education', 'db/*'),
+    path.join(__dirname, 'modules', 'email', 'db/*'),
+    path.join(__dirname, 'modules', 'user', 'db/*'),
+  ]
 }).then(() => {
   // Enable CORS
   app.use(cors())
@@ -49,7 +51,9 @@ typeorm.createConnection({
       process.exit(1)
       return
     }
-    console.log(`Server listening on port: ${process.env.PORT || 3000}`)
+    console.log(
+      `Server listening on port: ${process.env.PORT || 3000}`
+    );
   })
 }).catch(error => {
   console.log(error)
