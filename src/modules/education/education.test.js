@@ -31,34 +31,34 @@ describe('Education repository tests', function () {
   });
 
   it('should save and fetch Category, SubCategories, Courses', async function () {
-    let category1 = Category.create(
+    let category1 = new Category(
       'category1',
       'Category1 description',
       'Category1 overview'
     );
-    let category2 = Category.create(
+    let category2 = new Category(
       'category2',
       'Category2 description',
       'Category2 overview'
     );
-    let subCategory1 = Subcategory.create(
+    let subCategory1 = new Subcategory(
       'subCategory1',
       'SubCategory1 description',
       category1
     );
-    let subCategory2 = Subcategory.create(
+    let subCategory2 = new Subcategory(
       'subCategory2',
       'SubCategory2 description',
       category2
     );
-    let course1 = Course.create(
+    let course1 = new Course(
       'course1',
       'Test course 1',
       ['test', 'tag'],
       '# Test content',
       [subCategory1, subCategory2]
     );
-    let course2 = Course.create(
+    let course2 = new Course(
       'course2',
       'Test course 2',
       ['test', 'tag'],

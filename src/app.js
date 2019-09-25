@@ -35,14 +35,24 @@ typeorm.createConnection({
     res.send('ITS server')
   })
 
+  app.use(require('./modules/education/api'));
+  app.use(require('./modules/user/api'));
+
   // catch 404 and forward to error handler
   app.use((req, res, next) => {
-    res.status(404).send('404 error')
+    res.status(404).send({
+      name: 'NotFoundError',
+      message: `Path '${req.path}' not found`
+    })
   })
 
   // error handler
   app.use((err, req, res, next) => {
-    res.send('error')
+    res.status(err.statusCode).send({
+      name: err.name,
+      message: err.message,
+      description: err.description
+    });
   })
 
   app.listen(process.env.PORT || 3000, error => {

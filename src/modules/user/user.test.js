@@ -17,6 +17,10 @@ describe('User repository tests', function () {
     await connectToDatabase();
   });
 
+  beforeEach(async () => {
+    await clearDatabase();
+  });
+
   afterAll(() => {
     process.env.NODE_ENV = 'development';
   })
@@ -26,15 +30,14 @@ describe('User repository tests', function () {
   });
 
   it('should save and fetch single user', async function () {
-    let user = new User('1',
-      'testUserName',
-      new Date(),
-      'test@mail.com',
-      'example.com',
-      ['programming', 'design'],
-      '/image/profile.png',
-      'ACTIVE'
-    );
+    let user = new User();
+    user.username = 'testUserName';
+    user.createdDate = new Date();
+    user.birthDate = new Date();
+    user.email = 'est@mail.com';
+    user.website = 'example.com';
+    user.interests = 'programming,design';
+    user.avatar = '/image/profile.png';
 
     let savedUser = await db.save(user);
     let fetchedUser = await db.getByUid(user.uid);
@@ -43,24 +46,33 @@ describe('User repository tests', function () {
     expect(fetchedUser).toEqual(fetchedUser);
   });
 
+  it('should fetch and return not found error', async function () {
+    try {
+      await db.getByUid('invalidId');
+    } catch (e) {
+      expect(e.name).toEqual('NotFoundError');
+      expect(e.message).toEqual(`User 'invalidId' not found`);
+    }
+  })
+
 });
 
 
 describe('User model tests', function () {
 
   it('should return field key', async function () {
-    let user = new User('1',
-      'testUserName',
-      new Date(),
-      'test@mail.com',
-      'example.com',
-      ['programming', 'design'],
-      '/image/profile.png'
-    );
+    let user = new User();
+    user.username = 'testUserName';
+    user.createdDate = new Date();
+    user.birthDate = new Date();
+    user.email = 'test@mail.com';
+    user.website = 'example.com';
+    user.interests = 'programming,design';
+    user.avatar = '/image/profile.png';
 
     expect(user.getFieldName('testUserName')).toEqual('username');
     expect(user.getFieldName('test@mail.com')).toEqual('email');
-  })
+  });
 
 });
 
@@ -76,6 +88,10 @@ describe('User service tests', function () {
     process.env.NODE_ENV = 'development';
   })
 
+  beforeEach(async () => {
+    await clearDatabase();
+  });
+
   afterEach(async () => {
     await clearDatabase();
   });
@@ -86,7 +102,7 @@ describe('User service tests', function () {
       await service.register('testUsername', new Date(), 'test2@mail.com');
     } catch (e) {
       expect(e.name).toEqual('ConflictError');
-      expect(e.message).toEqual(`username: 'testUsername' taken`);
+      expect(e.message).toEqual(`Username 'testUsername' taken`);
     }
   });
 
@@ -96,7 +112,7 @@ describe('User service tests', function () {
       await service.register('testUsername2', new Date(), 'test@mail.com');
     } catch (e) {
       expect(e.name).toEqual('ConflictError');
-      expect(e.message).toEqual(`email: 'test@mail.com' taken`);
+      expect(e.message).toEqual(`Email 'test@mail.com' taken`);
     }
   })
 
@@ -106,7 +122,7 @@ describe('User service tests', function () {
       await service.register('testUsername', new Date(), 'test@mail.com');
     } catch (e) {
       expect(e.name).toEqual('ConflictError');
-      expect(e.message).toEqual(`username: 'testUsername' taken`);
+      expect(e.message).toEqual(`Username 'testUsername' taken`);
     }
   })
 });

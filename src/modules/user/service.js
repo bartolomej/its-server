@@ -11,7 +11,7 @@ let logger = winston.createLogger({
 });
 
 async function register (username, birthDate, email) {
-  let user = User.create(username, birthDate, email);
+  let user = new User(username, birthDate, email);
   let savedUser = await db.save(user);
   if (process.env.NODE_ENV === 'test') return savedUser;
   await mail.send(email, 'ITS', 'Dobrodosel!',
@@ -39,6 +39,7 @@ async function update (uid, username, birthDate, email, website, interests, avat
 async function deactivate (uid) {
   let user = await db.getByUid(uid);
   user.status = 'DEACTIVATED';
+  user.deactivatedDate = new Date();
   await mail.send(user.email, 'ITS', '',
     `Pozdravljen ${user.username},\n\n
       Zal nam je da odhajas.
@@ -54,5 +55,6 @@ async function deactivate (uid) {
 
 module.exports = {
   register,
-  update
+  update,
+  deactivate
 }

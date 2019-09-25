@@ -1,31 +1,22 @@
 const uuid = require('uuid/v4');
+const moment = require('moment');
+
 
 class User {
-  constructor (uid, username, birthDate, email, website, interests = [], avatar, status) {
-    this.uid = uid;
+  constructor (username, birthDate, email, website = null, interests = [], avatar = null) {
+    if (!interests instanceof Array) {
+      throw new Error('Interests is not an array');
+    }
+    this.uid = uuid();
     this.username = username;
-    this.birthDate = birthDate;
+    this.birthDate = moment(birthDate).toDate();
     this.email = email;
     this.website = website;
     this.interests = interests.join(',');
     this.avatar = avatar;
-    this.status = status;
-  }
-
-  static create (username, birthDate, email, website, interests, avatar) {
-    if (!interests instanceof Array) {
-      throw new Error('Interests is not an array');
-    }
-    return new User(
-      uuid(),
-      username,
-      birthDate,
-      email,
-      website,
-      interests,
-      avatar,
-      'ACTIVE'
-    )
+    this.createdDate = moment().toDate();
+    this.deactivatedDate = null;
+    this.status = 'ACTIVE';
   }
 
   getFieldName (value) {

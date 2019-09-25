@@ -3,20 +3,11 @@ const uuid = require('uuid/v4');
 
 class Category {
 
-  constructor (uid, name, description, overview) {
-    this.uid = uid;
+  constructor (name, description, overview) {
+    this.uid = uuid();
     this.name = name;
     this.description = description;
     this.overview = overview;
-  }
-
-  static create (name, description, overview) {
-    return new Category(
-      uuid(),
-      name,
-      description,
-      overview
-    )
   }
 
 }

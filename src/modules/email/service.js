@@ -24,7 +24,7 @@ async function send (toAddress, senderName, subject, text) {
   const transporter = transport();
   const senderEmail = process.env.EMAIL_USER;
 
-  let email = Email.create(toAddress, senderName, senderEmail, subject, text);
+  let email = new Email(toAddress, senderName, senderEmail, subject, text);
 
   let emailConfig = {
     to: toAddress,

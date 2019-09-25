@@ -26,13 +26,12 @@ describe('Email repository tests', function () {
   });
 
   it('should save and fetch single email', async function () {
-    let email = new Email('1',
-      'to.address@mail.com',
-      'from.address@mail.com',
-      'TEST',
-      'test',
-      'This is a test email body text'
-    );
+    let email = new Email();
+    email.uid = '1';
+    email.fromAddress = 'from.address@mail.com';
+    email.toAddress = 'to.address@mail.com';
+    email.subject = 'Test';
+    email.text = 'This is a test email';
 
     let savedEmail = await db.save(email);
     let fetchedEmail = await db.getByUid('1');
