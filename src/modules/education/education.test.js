@@ -24,7 +24,7 @@ describe('Education repository tests', function () {
 
   afterAll(() => {
     process.env.NODE_ENV = 'development';
-  })
+  });
 
   afterEach(async () => {
     await clearDatabase();
@@ -100,37 +100,19 @@ describe('Education repository tests', function () {
 
 
 async function connectToDatabase () {
-  await createConnection({
-    type: 'mysql',
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    synchronize: true,
-    logging: false,
-    entities: [
-      path.join(__dirname, 'db', 'CategorySchema.js'),
-      path.join(__dirname, 'db', 'SubcategorySchema.js'),
-      path.join(__dirname, 'db', 'CourseSchema.js'),
-    ]
-  });
+  await createConnection(require('../../../typeorm'));
 }
 
 async function clearDatabase () {
-  await getRepository("Course")
-  .createQueryBuilder()
-  .delete()
-  .from(Course)
-  .execute();
-  await getRepository("Subcategory")
-  .createQueryBuilder()
-  .delete()
-  .from(Subcategory)
-  .execute();
-  await getRepository("Category")
-  .createQueryBuilder()
-  .delete()
-  .from(Category)
-  .execute();
+  await remove("Course");
+  await remove("Subcategory");
+  await remove("Category");
+}
+
+async function remove (modelName) {
+  await getRepository(modelName)
+    .createQueryBuilder()
+    .delete()
+    .from(modelName)
+    .execute();
 }

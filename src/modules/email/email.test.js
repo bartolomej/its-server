@@ -19,7 +19,7 @@ describe('Email repository tests', function () {
 
   afterAll(() => {
     process.env.NODE_ENV = 'development';
-  })
+  });
 
   afterEach(async () => {
     await clearDatabase();
@@ -69,17 +69,7 @@ describe('Email service tests', function () {
 
 
 async function connectToDatabase () {
-  await createConnection({
-    type: 'mysql',
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    synchronize: true,
-    logging: false,
-    entities: [ path.join(__dirname, 'db', 'EmailSchema.js') ]
-  })
+  await createConnection(require('../../../typeorm'));
 }
 
 async function clearDatabase () {

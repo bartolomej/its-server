@@ -6,37 +6,25 @@ const morgan = require('morgan');
 const app = express();
 require('dotenv').config({
   path: path.join(__dirname, '..', '.env')
-})
+});
 
 
-typeorm.createConnection({
-  type: 'mysql',
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  synchronize: true,
-  logging: false,
-  entities: [
-    path.join(__dirname, 'modules', 'education', 'db/*'),
-    path.join(__dirname, 'modules', 'email', 'db/*'),
-    path.join(__dirname, 'modules', 'user', 'db/*'),
-  ]
-}).then(() => {
+typeorm.createConnection(require('../typeorm'))
+  .then(() => {
   // Enable CORS
-  app.use(cors())
+  app.use(cors());
 
-  app.use(morgan('dev'))
-  app.use(express.json())
-  app.use(express.urlencoded({ extended: false }))
+  app.use(morgan('dev'));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
 
   app.get('/', (req, res, next) => {
     res.send('ITS server')
-  })
+  });
 
   app.use(require('./modules/education/api'));
   app.use(require('./modules/user/api'));
+  app.use(require('./modules/email/api'));
 
   // catch 404 and forward to error handler
   app.use((req, res, next) => {
@@ -44,7 +32,7 @@ typeorm.createConnection({
       name: 'NotFoundError',
       message: `Path '${req.path}' not found`
     })
-  })
+  });
 
   // error handler
   app.use((err, req, res, next) => {
@@ -53,12 +41,12 @@ typeorm.createConnection({
       message: err.message,
       description: err.description
     });
-  })
+  });
 
   app.listen(process.env.PORT || 3000, error => {
     if (error) {
-      console.error(error)
-      process.exit(1)
+      console.error(error);
+      process.exit(1);
       return
     }
     console.log(
@@ -66,6 +54,6 @@ typeorm.createConnection({
     );
   })
 }).catch(error => {
-  console.log(error)
-  process.exit(1)
-})
+  console.log(error);
+  process.exit(1);
+});

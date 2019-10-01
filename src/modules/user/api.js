@@ -1,12 +1,12 @@
 const app = require('express').Router();
 const { check, validationResult } = require('express-validator');
 const { register, update, deactivate } = require('./service');
-const { getByUid } = require('./db/repository');
+const { getByUid, getAll } = require('./db/repository');
 const { BadRequestError } = require('../../errors');
 
 
 app.get('/user', async (req, res, next) => {
-  res.send('User API');
+  res.send(await getAll());
 });
 
 app.get('/user/:uid', async (req, res, next) => {

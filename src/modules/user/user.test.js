@@ -23,7 +23,7 @@ describe('User repository tests', function () {
 
   afterAll(() => {
     process.env.NODE_ENV = 'development';
-  })
+  });
 
   afterEach(async () => {
     await clearDatabase();
@@ -86,7 +86,7 @@ describe('User service tests', function () {
 
   afterAll(() => {
     process.env.NODE_ENV = 'development';
-  })
+  });
 
   beforeEach(async () => {
     await clearDatabase();
@@ -114,7 +114,7 @@ describe('User service tests', function () {
       expect(e.name).toEqual('ConflictError');
       expect(e.message).toEqual(`Email 'test@mail.com' taken`);
     }
-  })
+  });
 
   it('should register users with same username & password', async function () {
     await service.register('testUsername', new Date(), 'test@mail.com');
@@ -129,19 +129,7 @@ describe('User service tests', function () {
 
 
 async function connectToDatabase () {
-  await createConnection({
-    type: 'mysql',
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    synchronize: true,
-    logging: false,
-    entities: [
-      path.join(__dirname, 'db', 'UserSchema.js')
-    ]
-  });
+  await createConnection(require('../../../typeorm'));
 }
 
 async function clearDatabase () {

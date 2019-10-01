@@ -4,7 +4,9 @@
   "description": "ITS back end application.",
   "main": "src/app.js",
   "scripts": {
-    "start": "nodemon src/app.js"
+    "start": "nodemon src/app.js",
+    "test-data": "node scripts/mock-data.js",
+    "remove-data": "node scripts/clear-data.js"
   },
   "repository": {
     "type": "git",

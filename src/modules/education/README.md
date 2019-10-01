@@ -26,7 +26,7 @@ This endpoint returns all categories.
 ```
 
 
-## Get all subcategories
+## Get subcategories
 
 This endpoint returns all subcategories of some category.
 
@@ -52,13 +52,13 @@ This endpoint returns all subcategories of some category.
 ```
 
 
-## Get all courses
+## Get courses
 
 This endpoint returns all courses of some subcategory.
 
 ##### HTTP REQUEST
 
-`GET /education/subcategory/:subcategoryUid/course`
+`GET /education/category/:categoryUid/subcategory/:subcategoryUid/course`
 
 ##### RESPONSE
 

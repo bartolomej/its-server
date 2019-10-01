@@ -10,23 +10,26 @@ app.get('/education', (req, res) => {
 
 //** CATEGORY ENDPOINTS **//
 
-app.get('/education/category', async (req, res) => {
-  res.send(await db.getCategories());
+app.get('/education/category',
+  async (req, res) => {
+    res.send(await db.getCategories());
 });
 
 
 //** SUBCATEGORY ENDPOINTS **//
 
-app.get('/education/category/:uid/subcategory', async (req, res) => {
-  let categories = await db.getSubcategories(req.params.uid);
+app.get('/education/category/:categoryUid/subcategory',
+  async (req, res) => {
+  let categories = await db.getSubcategories(req.params.categoryUid);
   res.send(categories.map(c => ({...c, category: undefined})));
 });
 
 
 //** COURSE ENDPOINTS **//
 
-app.get('/education/subcategory/:uid/course', async (req, res) => {
-  let courses = await db.getCourses(req.params.uid);
+app.get('/education/category/:categoryUid/subcategory/:subcategoryUid/course',
+  async (req, res) => {
+  let courses = await db.getCourses(req.params.subcategoryUid);
   res.send(courses.map(c => ({...c, subcategories: undefined})));
 });
 
