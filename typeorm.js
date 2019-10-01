@@ -13,5 +13,6 @@ module.exports = {
     path.join(__dirname, 'src', 'modules', 'education', 'db/*'),
     path.join(__dirname, 'src', 'modules', 'email', 'db/*'),
     path.join(__dirname, 'src', 'modules', 'user', 'db/*'),
+    path.join(__dirname, 'src', 'modules', 'admin', 'db/*')
   ]
 };

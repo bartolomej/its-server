@@ -11,6 +11,7 @@ const Subcategory = require('../src/modules/education/Subcategory');
 const Course = require('../src/modules/education/Course');
 const User = require('../src/modules/user/User');
 const Email = require('../src/modules/email/Email');
+const Admin = require('../src/modules/admin/Admin');
 
 const userDb = require('../src/modules/user/db/repository');
 const educationDb = require('../src/modules/education/db/repository');
@@ -27,9 +28,15 @@ const adminDb = require('../src/modules/admin/db/repository');
     'kiko',
     'zak'
   ];
+  const admins = [
+    ['Bartolomej', 'Kozorog'],
+    ['Jakob', 'Drusany'],
+    ['Luka', 'Gulic']
+  ];
   await insertEducationData();
   await insertUserData(users);
   await insertMailData(users, 6);
+  await insertAdminData(admins)
 })();
 
 async function insertEducationData () {
@@ -101,4 +108,16 @@ async function insertMailData (users, n) {
     email.text = 'This is a test email. ';
     await emailDb.save(email);
   }
+}
+
+async function insertAdminData (admins) {
+  admins.forEach(async admin => {
+    await adminDb.save(new Admin(
+      admin[0],
+      admin[1],
+      Admin.roles.NORMAL,
+      admin[0] + '@mail.com',
+      '0310000'
+    ))
+  })
 }

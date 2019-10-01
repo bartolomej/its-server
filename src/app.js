@@ -25,6 +25,7 @@ typeorm.createConnection(require('../typeorm'))
   app.use(require('./modules/education/api'));
   app.use(require('./modules/user/api'));
   app.use(require('./modules/email/api'));
+  app.use(require('./modules/admin/api'));
 
   // catch 404 and forward to error handler
   app.use((req, res, next) => {
