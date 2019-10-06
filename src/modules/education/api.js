@@ -7,32 +7,28 @@ app.get('/education', (req, res) => {
   res.send('Education API');
 });
 
-
-//** CATEGORY ENDPOINTS **//
-
-app.get('/education/category',
-  async (req, res) => {
-    res.send(await db.getCategories());
+app.get('/education/category', async (req, res) => {
+    res.send(await db.getAllCategories());
 });
 
-
-//** SUBCATEGORY ENDPOINTS **//
-
-app.get('/education/category/:categoryUid/subcategory',
-  async (req, res) => {
-  let categories = await db.getSubcategories(req.params.categoryUid);
-  res.send(categories.map(c => ({...c, category: undefined})));
+app.get('/education/subcategory', async (req, res) => {
+  let subcategories = await db.getAllSubcategories();
+  res.send(subcategories.map(c => ({
+    ...c,
+    category: c.category.uid,
+  })));
 });
 
-
-//** COURSE ENDPOINTS **//
-
-app.get('/education/category/:categoryUid/subcategory/:subcategoryUid/course',
-  async (req, res) => {
-  let courses = await db.getCourses(req.params.subcategoryUid);
-  res.send(courses.map(c => ({...c, subcategories: undefined})));
+app.get('/education/course', async (req, res) => {
+  let courses = req.query.subcategory ?
+    await db.getCourses(req.query.subcategory) :
+    await db.getAllCourses();
+  res.send(courses.map(c => ({
+    ...c,
+    subcategory: c.subcategories.map(s => s.uid),
+    subcategories: undefined
+  })));
 });
-
 
 
 module.exports = app;

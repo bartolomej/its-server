@@ -124,7 +124,22 @@ describe('User service tests', function () {
       expect(e.name).toEqual('ConflictError');
       expect(e.message).toEqual(`Username 'testUsername' taken`);
     }
-  })
+  });
+
+  it('should update registered user', async function () {
+    let user = await service.register('testUsername', new Date(), 'test@mail.com');
+    let updatedUser = await service.update(
+      user.uid,
+      'updatedUsername',
+      user.birthDate,
+      user.email,
+      user.website,
+      user.interests,
+      user.avatar
+    );
+    expect(updatedUser.username).toEqual('updatedUsername');
+  });
+
 });
 
 

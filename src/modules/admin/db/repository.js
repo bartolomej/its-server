@@ -9,7 +9,7 @@ module.exports.getByUid = async function (uid) {
   return await getRepository("Admin")
   .createQueryBuilder("a")
   .where('a.uid = :uid', {uid})
-  .getMany();
+  .getOne();
 };
 
 module.exports.getAll = async function () {

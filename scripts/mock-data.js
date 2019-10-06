@@ -22,16 +22,49 @@ const adminDb = require('../src/modules/admin/db/repository');
 (async function () {
   await createConnection(require('../typeorm'));
 
+  await remove("User");
+  await remove("Course");
+  await remove("Subcategory");
+  await remove("Category");
+
   const users = [
     'jakic12',
     'bartKoz',
     'kiko',
-    'zak'
+    'zak',
+
+    'jakic122',
+    'bartK3oz',
+    'kikso',
+    'zdak',
+    'jakfdic12',
+    'barqtKoz',
+    'kifko',
+    'zcak',
+    'jakdic12',
+    'bavrtKoz',
+    'kisko',
+    'zxack',
+    'jakixc12',
+    'bavrxtKoz',
+    'kikxo',
+    'zaxk',
+    'jakxic12',
+    'barztKoz',
+    'kifgdko',
+    'zafk',
+    'jakicsds12',
+    'baartKoz',
+    'kiqko',
+    'zgak',
   ];
   const admins = [
     ['Bartolomej', 'Kozorog'],
     ['Jakob', 'Drusany'],
-    ['Luka', 'Gulic']
+    ['Luka', 'Gulic'],
+    ['Bartolomej', 'Kozorog'],
+    ['Jakob', 'Drusany'],
+    ['Luka', 'Gulic'],
   ];
   await insertEducationData();
   await insertUserData(users);
@@ -120,4 +153,12 @@ async function insertAdminData (admins) {
       '0310000'
     ))
   })
+}
+
+async function remove(modelName) {
+  await getRepository(modelName)
+    .createQueryBuilder()
+    .delete()
+    .from(modelName)
+    .execute();
 }

@@ -22,6 +22,12 @@ app.post('/admin', [
   check('email').isEmail(),
   check('phoneNumber').isString(),
 ], async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(new BadRequestError(
+      "Invalid request body", errors.array()
+    ));
+  }
   try {
     res.send(await save(new Admin(
       req.body.firstName,
@@ -30,6 +36,33 @@ app.post('/admin', [
       req.body.email,
       req.body.phoneNumber
     )));
+  } catch (e) { next(e) }
+});
+
+app.put('/admin/:uid', [
+  check('firstName').isString(),
+  check('lastName').isString(),
+  check('role').isString(),
+  check('email').isEmail(),
+  check('phoneNumber').isString(),
+], async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(new BadRequestError(
+      "Invalid request body", errors.array()
+    ));
+  }
+  try {
+    let admin = await getByUid(req.params.uid);
+    console.log(admin)
+    admin.firstName = req.body.firstName;
+    admin.lastName = req.body.lastName;
+    admin.role = req.body.role;
+    admin.email = req.body.email;
+    admin.phoneNumber = req.body.phoneNumber;
+    console.log(admin)
+    let updatedAdmin = await save(admin);
+    res.send(updatedAdmin);
   } catch (e) { next(e) }
 });
 

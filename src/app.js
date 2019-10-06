@@ -37,10 +37,11 @@ typeorm.createConnection(require('../typeorm'))
 
   // error handler
   app.use((err, req, res, next) => {
-    res.status(err.statusCode).send({
+    res.status(err.statusCode || 400).send({
       name: err.name,
       message: err.message,
-      description: err.description
+      description: err.description,
+      stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
     });
   });
 

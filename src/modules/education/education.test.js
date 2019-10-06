@@ -81,7 +81,7 @@ describe('Education repository tests', function () {
     expect(savedCourse2).toEqual(course2);
 
 
-    let categories = await db.getCategories();
+    let categories = await db.getAllCategories();
     let subcategories1 = await db.getSubcategories(category1.uid);
     let subcategories2 = await db.getSubcategories(category2.uid);
     let courses1 = await db.getCourses(subCategory1.uid);
