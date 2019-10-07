@@ -2,7 +2,6 @@ const getRepository = require('typeorm').getRepository;
 const { ConflictError, NotFoundError } = require('../../../errors');
 
 module.exports.save = async function (user) {
-  user.interests = user.interests.join(',');
   return await getRepository("User").save(user)
     .catch(e => {
       if (e.code === 'ER_DUP_ENTRY') {
@@ -26,7 +25,7 @@ module.exports.getByUid = async function (uid) {
     .where("u.uid = :uid", {uid})
     .getOne();
   if (!user) throw new NotFoundError(`User '${uid}' not found`);
-  user.interests = user.interests.split(',');
+  if (user.interests) user.interests = user.interests.split(',');
   return user;
 };
 

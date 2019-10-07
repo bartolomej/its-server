@@ -10,8 +10,9 @@ let logger = winston.createLogger({
   transports: [ new winston.transports.Console ]
 });
 
+
 async function register (username, birthDate, email) {
-  let user = new User(username, birthDate, email);
+  let user = User.create(username, birthDate, email);
   let savedUser = await db.save(user);
   if (process.env.NODE_ENV === 'test') return savedUser;
   await mail.send(email, 'ITS', 'Dobrodosel!',
@@ -31,7 +32,8 @@ async function update (uid, username, birthDate, email, website, interests, avat
   user.birthDate = birthDate;
   user.email = email;
   user.website = website;
-  user.interests = interests;
+  user.interests = interests instanceof Array ?
+    interests.join(',') : interests;
   user.avatar = avatar;
   return await db.save(user);
 }
@@ -54,7 +56,7 @@ async function deactivate (uid) {
 
 
 module.exports = {
-  register,
+  register: register,
   update,
   deactivate
-}
+};

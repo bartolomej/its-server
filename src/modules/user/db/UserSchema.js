@@ -36,6 +36,9 @@ module.exports = new EntitySchema({
     status: {
       type: 'varchar'
     },
+    type: {
+      type: 'varchar'
+    },
     createdDate: {
       type: 'date'
     },
@@ -44,4 +47,4 @@ module.exports = new EntitySchema({
       nullable: true
     }
   }
-})
+});
