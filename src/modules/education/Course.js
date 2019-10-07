@@ -4,14 +4,11 @@ const moment = require('moment');
 
 class Course {
 
-  constructor (title, description, tags = [], content, subcategories) {
-    if (!tags instanceof Array) {
-      throw new Error('Tags is not an array');
-    }
+  constructor (title, description, tags, content, subcategories) {
     this.uid = uuid();
     this.title = title;
     this.description = description;
-    this.tags = tags.join(',');
+    this.tags = tags;
     this.content = content;
     this.created = moment().toDate();
     this.subcategories = subcategories;

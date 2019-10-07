@@ -49,7 +49,6 @@ app.put('/user/:uid', [
       "Invalid request body", errors.array()
     ));
   }
-  console.log(req.body)
   try {
     res.send(await update(
       req.params.uid,

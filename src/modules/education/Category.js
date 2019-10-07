@@ -7,7 +7,6 @@ class Category {
     this.uid = uuid();
     this.name = name;
     this.description = description;
-    this.overview = overview;
   }
 
 }

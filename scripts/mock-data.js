@@ -64,12 +64,10 @@ async function insertEducationData () {
   let matematika = await educationDb.saveCategory(new Category(
     'Matematika',
     'Vse o matematiki...',
-    'Category1 overview'
   ));
   let racunalnistvo = await educationDb.saveCategory(new Category(
     'Racunalnistvo',
     'Vse o racunalnistvu...',
-    'Category2 overview'
   ));
   let stevila = await educationDb.saveSubcategory(new Subcategory(
     'Stevila',

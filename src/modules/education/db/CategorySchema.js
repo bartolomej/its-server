@@ -14,9 +14,6 @@ module.exports = new EntitySchema({
     },
     description: {
       type: 'varchar'
-    },
-    overview: {
-      type: 'varchar'
     }
   }
-})
+});
