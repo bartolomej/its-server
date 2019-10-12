@@ -1,0 +1,76 @@
+{
+  "title": "Course",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "tags": {
+      "type": [
+        "string",
+        "array"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "content": {
+      "type": "string"
+    },
+    "created": {
+      "type": "string"
+    },
+    "subcategories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "x-examples": {
+    "example-1": {
+      "value": {
+        "uid": "26aca5f6-424e-4d94-8964-c18c0462ec52",
+        "title": "Vizualizacija kompleksnih stevil",
+        "description": "Kaj so kompleksna in realna stevila ? Izdelajte preprosto vizualizacijo...",
+        "tags": [
+          "stevila",
+          "programiranje",
+          "vizualizacije",
+          "javascript"
+        ],
+        "content": "# Test content",
+        "created": "2019-10-12",
+        "subcategories": [
+          {
+            "uid": "10cb0038-338a-4d6c-a957-127c03dad18b",
+            "name": "Stevila",
+            "description": "V tem poglavju se bomo ukvarjali z stevili"
+          },
+          {
+            "uid": "35e554c6-060a-4b77-a86f-65404fcaee25",
+            "name": "Programiranje",
+            "description": "SubCategory2 description"
+          }
+        ]
+      }
+    }
+  }
+}

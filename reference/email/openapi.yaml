@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: email
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /email:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      type: string
+                    fromAddress:
+                      type: string
+                    toAddress:
+                      type: string
+                    subject:
+                      type: string
+                    text:
+                      type: string
+              examples:
+                example-1:
+                  value:
+                    - uid: 0a5b3d5c-a1f5-463f-a166-8a349b463fc4
+                      fromAddress: bartKoz@mail.com
+                      toAddress: zak@mail.com
+                      subject: Test mail 3
+                      text: 'This is a test email. '
+                    - uid: 0b49b6ff-2db7-440f-a430-c96e270ddfd5
+                      fromAddress: kikso@mail.com
+                      toAddress: jakic12@mail.com
+                      subject: Test mail 4
+                      text: 'This is a test email. '
+      description: Get emails with properties.
+components:
+  schemas: {}
