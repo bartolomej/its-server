@@ -12,6 +12,8 @@ require('dotenv').config({
   await remove("Course");
   await remove("Subcategory");
   await remove("Category");
+  console.log('Data successfully removed from db.');
+  process.exit();
 })();
 
 async function remove(modelName) {

@@ -58,6 +58,8 @@ const emailDb = require('../src/modules/email/db/repository');
   await insertEducationData();
   await insertUserData(users);
   await insertMailData(users, 6);
+  console.log('Test data successfully inserted in db.');
+  process.exit();
 })();
 
 async function insertEducationData () {

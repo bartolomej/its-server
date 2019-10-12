@@ -2,17 +2,17 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 
-### Setup
+## Setup
 
-To install and work on its run:
+To install and work on ITS run:
+1. `git clone https://github.com/bartolomej/its-server`
+2. `cd its-server`
+3. `npm install`
+4. [configure environment variables](https://www.npmjs.com/package/dotenv#usage)
+5. `npm run test-data`
+6. `npm start`
 
-```shell
-git clone https://github.com/bartolomej/its-server
-cd its-server
-npm install
-```
-
-Environment variables:
+## Environment variables:
 
 ```
 // database config
@@ -32,6 +32,15 @@ EMAIL_PASSWORD = <email-password>
 PORT = <app-port>
 ```
 
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm run test-data`
+Inserts test data. Script is located in `scripts/mock-data.js`
+
+### `npm run remove-data`
+Removes all data. Script is located in `scripts/clear-data.js`
 
 ### Code style
 
