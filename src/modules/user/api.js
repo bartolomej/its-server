@@ -10,9 +10,7 @@ app.get('/user', async (req, res, next) => {
 });
 
 app.get('/user/:uid', async (req, res, next) => {
-  try {
-    res.send(await remove(req.params.uid));
-  } catch (e) { next(e) }
+  res.send(await getByUid(req.params.uid));
 });
 
 app.delete('/user/:uid', async (req, res, next) => {

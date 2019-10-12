@@ -16,50 +16,63 @@ const userDb = require('../src/modules/user/db/repository');
 const educationDb = require('../src/modules/education/db/repository');
 const emailDb = require('../src/modules/email/db/repository');
 
+const users = [
+  'jakic12',
+  'bartKoz',
+  'kiko',
+  'zak',
+  'jakic122',
+  'bartK3oz',
+  'kikso',
+  'zdak',
+  'jakfdic12',
+  'barqtKoz',
+  'kifko',
+  'zcak',
+  'jakdic12',
+  'bavrtKoz',
+  'kisko',
+  'zxack',
+  'jakixc12',
+  'bavrxtKoz',
+  'kikxo',
+  'zaxk',
+  'jakxic12',
+  'barztKoz',
+  'kifgdko',
+  'zafk',
+  'jakicsds12',
+  'baartKoz',
+  'kiqko',
+  'zgak',
+];
 
 (async function () {
   await createConnection(require('../typeorm'));
 
-  await remove("User");
-  await remove("Course");
-  await remove("Subcategory");
-  await remove("Category");
+  try {
+    await remove("User");
+    await remove("Course");
+    await remove("Subcategory");
+    await remove("Category");
+  } catch (e) {
+    console.error('ERROR WHILE DELETING DATA');
+    console.error(e);
+    process.exit(1);
+  }
 
-  const users = [
-    'jakic12',
-    'bartKoz',
-    'kiko',
-    'zak',
-    'jakic122',
-    'bartK3oz',
-    'kikso',
-    'zdak',
-    'jakfdic12',
-    'barqtKoz',
-    'kifko',
-    'zcak',
-    'jakdic12',
-    'bavrtKoz',
-    'kisko',
-    'zxack',
-    'jakixc12',
-    'bavrxtKoz',
-    'kikxo',
-    'zaxk',
-    'jakxic12',
-    'barztKoz',
-    'kifgdko',
-    'zafk',
-    'jakicsds12',
-    'baartKoz',
-    'kiqko',
-    'zgak',
-  ];
-  await insertEducationData();
-  await insertUserData(users);
-  await insertMailData(users, 6);
-  console.log('Test data successfully inserted in db.');
-  process.exit();
+
+  try {
+    await insertEducationData();
+    await insertUserData(users);
+    await insertMailData(users, 6);
+    console.log('Test data successfully inserted in db.');
+    process.exit();
+  } catch (e) {
+    console.error('ERROR WHILE INSERTING DATA!');
+    console.error(e);
+    process.exit(1);
+  }
 })();
 
 async function insertEducationData () {

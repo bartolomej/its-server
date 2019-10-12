@@ -37,7 +37,7 @@ async function send (toAddress, senderName, subject, text) {
       officeAddress: 'Bratov Hvalič 2 | 5000 Nova Gorica',
       unsubscribeUrl: ''
     })
-  }
+  };
 
   transporter.sendMail(emailConfig);
 
@@ -46,4 +46,4 @@ async function send (toAddress, senderName, subject, text) {
 
 module.exports = {
   send
-}
+};

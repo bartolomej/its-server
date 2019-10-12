@@ -18,6 +18,10 @@ app.get('/education/category', async (req, res) => {
     res.send(await db.getAllCategories());
 });
 
+app.get('/education/category/:uid', async (req, res) => {
+  res.send(await db.getCategoryByUid(req.params.uid));
+});
+
 app.delete('/education/category/:uid', async (req, res, next) => {
   try {
     await db.removeCategory(req.params.uid);
@@ -71,6 +75,10 @@ app.get('/education/subcategory', async (req, res) => {
     ...c,
     category: c.category ? c.category.uid : c.category,
   })));
+});
+
+app.get('/education/subcategory/:uid', async (req, res) => {
+  res.send(await db.getSubcategoryByUid(req.params.uid));
 });
 
 app.delete('/education/subcategory/:uid', async (req, res, next) => {
@@ -133,6 +141,10 @@ app.get('/education/course', async (req, res) => {
   })));
 });
 
+app.get('/education/course/:uid', async (req, res) => {
+  res.send(await db.getCourseByUid(req.params.uid));
+});
+
 app.delete('/education/course/:uid', async (req, res, next) => {
   try {
     await db.removeCourse(req.params.uid);
@@ -143,7 +155,7 @@ app.delete('/education/course/:uid', async (req, res, next) => {
 app.put('/education/course/:uid', [
   check('title').isString(),
   check('description').isString(),
-  check('tags').isString(),
+  check('tags').isArray(),
   check('content').isString(),
   check('subcategories').isArray(),
 ], async (req, res, next) => {
@@ -157,7 +169,7 @@ app.put('/education/course/:uid', [
     let course = await db.getCourseByUid(req.params.uid);
     course.title = req.body.title;
     course.description = req.body.description;
-    course.tags = req.body.tags;
+    course.tags = req.body.tags.join(',');
     course.content = req.body.content;
     course.subcategories = await Promise.all(
       req.body.subcategories.map(async uid => await db.getSubcategoryByUid(uid))
@@ -169,7 +181,7 @@ app.put('/education/course/:uid', [
 app.post('/education/course', [
   check('title').isString().isLength({ min: 1 }),
   check('description').isString(),
-  check('tags').isString(),
+  check('tags').isArray(),
   check('content').isString(),
   check('subcategories').isArray(),
 ], async (req, res, next) => {

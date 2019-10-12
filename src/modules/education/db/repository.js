@@ -1,5 +1,5 @@
 const getRepository = require('typeorm').getRepository;
-const { ConflictError } = require('../../../errors');
+const { ConflictError, NotFoundError } = require('../../../errors');
 
 
 //** CATEGORY QUERIES **//
@@ -25,16 +25,19 @@ module.exports.removeCategory = async function (uid) {
 };
 
 module.exports.getCategoryByUid = async function (uid) {
-  return await getRepository("Category")
-  .createQueryBuilder("c")
-  .where("c.uid = :uid", {uid})
-  .getOne();
+  let category = await getRepository("Category")
+    .createQueryBuilder("c")
+    .where("c.uid = :uid", {uid})
+    .getOne();
+  return category ?
+    category :
+    new NotFoundError("Category not found", `Category '${uid}' doesn't exist`);
 };
 
 module.exports.getAllCategories = async function () {
   return await getRepository("Category")
-  .createQueryBuilder("c")
-  .getMany();
+    .createQueryBuilder("c")
+    .getMany();
 };
 
 
@@ -54,10 +57,14 @@ module.exports.removeSubcategory = async function (uid) {
 };
 
 module.exports.getSubcategoryByUid = async function (uid) {
-  return await getRepository("Subcategory")
-  .createQueryBuilder("s")
-  .where("s.uid = :uid", {uid})
-  .getOne();
+  let subcategory = await getRepository("Subcategory")
+    .createQueryBuilder("s")
+    .leftJoinAndSelect("s.category", "category")
+    .where("s.uid = :uid", {uid})
+    .getOne();
+  return subcategory ?
+    subcategory :
+    new NotFoundError("Subcategory not found", `Subcategory '${uid}' doesn't exist`);
 };
 
 module.exports.getSubcategories = async function (categoryUid) {
@@ -93,26 +100,30 @@ module.exports.removeCourse = async function (uid) {
 
 module.exports.getCourses = async function (subcategoryUid) {
   let courses = await getRepository("Course")
-  .createQueryBuilder("c")
-  .leftJoinAndSelect("c.subcategories", "subcategories")
-  .where("subcategories.uid = :subcategoryUid", {subcategoryUid})
-  .getMany();
+    .createQueryBuilder("c")
+    .leftJoinAndSelect("c.subcategories", "subcategories")
+    .where("subcategories.uid = :subcategoryUid", {subcategoryUid})
+    .getMany();
   return parseCourses(courses);
 };
 
 module.exports.getAllCourses = async function () {
   let courses = await getRepository("Course")
-  .createQueryBuilder("c")
-  .leftJoinAndSelect("c.subcategories", "subcategories")
-  .getMany();
+    .createQueryBuilder("c")
+    .leftJoinAndSelect("c.subcategories", "subcategories")
+    .getMany();
   return parseCourses(courses);
 };
 
 module.exports.getCourseByUid = async function (uid) {
-  return await getRepository("Course")
-  .createQueryBuilder("c")
-  .where("c.uid = :uid", {uid})
-  .getOne();
+  let course = await getRepository("Course")
+    .createQueryBuilder("c")
+    .leftJoinAndSelect("c.subcategories", "subcategories")
+    .where("c.uid = :uid", {uid})
+    .getOne();
+  return course ?
+    parseCourse(course) :
+    new NotFoundError("Course not found", `Course '${uid}' doesn't exist`);
 };
 
 function parseCourses(courses) {
@@ -121,4 +132,9 @@ function parseCourses(courses) {
     tags: c.tags ? c.tags.split(',') : '',
     categories: c.categories ? c.categories.split(',') : c.categories
   }))
+}
+
+function parseCourse(course) {
+  course.tags = course.tags ? course.tags.split(',') : null;
+  return course;
 }

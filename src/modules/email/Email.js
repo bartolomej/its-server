@@ -1,4 +1,5 @@
 const uuid = require('uuid/v4');
+const moment = require('moment');
 
 class Email {
 
@@ -8,6 +9,7 @@ class Email {
     this.toAddress = toAddress;
     this.subject = subject;
     this.text = text;
+    this.datetime = moment().toDate();
   }
 
   // TODO: support markdown style text syntax (bold, title)
