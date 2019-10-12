@@ -25,6 +25,7 @@ typeorm.createConnection(require('../typeorm'))
   app.use(require('./modules/education/api'));
   app.use(require('./modules/user/api'));
   app.use(require('./modules/email/api'));
+  app.use(require('./modules/events/api'));
 
   // catch 404 and forward to error handler
   app.use((req, res, next) => {
@@ -36,6 +37,9 @@ typeorm.createConnection(require('../typeorm'))
 
   // error handler
   app.use((err, req, res, next) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(err);
+    }
     res.status(err.statusCode || 400).send({
       name: err.name,
       message: err.message,

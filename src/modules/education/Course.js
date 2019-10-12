@@ -8,7 +8,7 @@ class Course {
     this.uid = uuid();
     this.title = title;
     this.description = description;
-    this.tags = tags;
+    this.tags = tags instanceof Array ? tags.join(',') : tags;
     this.content = content;
     this.created = moment().toDate();
     this.subcategories = subcategories;

@@ -1,7 +1,7 @@
 const app = require('express').Router();
 const { check, validationResult } = require('express-validator');
 const { register, update, deactivate } = require('./service');
-const { getByUid, getAll } = require('./db/repository');
+const { getByUid, getAll, remove } = require('./db/repository');
 const { BadRequestError } = require('../../errors');
 
 
@@ -11,7 +11,14 @@ app.get('/user', async (req, res, next) => {
 
 app.get('/user/:uid', async (req, res, next) => {
   try {
-    res.send(await getByUid(req.params.uid));
+    res.send(await remove(req.params.uid));
+  } catch (e) { next(e) }
+});
+
+app.delete('/user/:uid', async (req, res, next) => {
+  try {
+    await remove(req.params.uid);
+    res.send({ status: 'ok' });
   } catch (e) { next(e) }
 });
 
@@ -41,7 +48,6 @@ app.put('/user/:uid', [
   check('email').isString(),
   check('website').isString(),
   check('interests').isArray(),
-  check('avatar').isString(),
 ], async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

@@ -1,4 +1,7 @@
 const winston = require('winston');
+const { EventEmitter } = require('events');
+const emitter = new EventEmitter();
+
 const mail = require('../email/service');
 const db = require('./db/repository');
 const User = require('./User');
@@ -32,10 +35,11 @@ async function update (uid, username, birthDate, email, website, interests, avat
   user.birthDate = birthDate;
   user.email = email;
   user.website = website;
-  user.interests = interests instanceof Array ?
-    interests.join(',') : interests;
+  user.interests = interests instanceof Array ? interests.join(',') : interests;
   user.avatar = avatar;
-  return await db.save(user);
+  let updatedUser = await db.save(user);
+  updatedUser.interests = updatedUser.interests.split(',');
+  return updatedUser;
 }
 
 async function deactivate (uid) {
@@ -56,7 +60,7 @@ async function deactivate (uid) {
 
 
 module.exports = {
-  register: register,
+  register,
   update,
   deactivate
 };
