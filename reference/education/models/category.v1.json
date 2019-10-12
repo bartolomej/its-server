@@ -1,0 +1,24 @@
+{
+  "title": "Category",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "x-examples": {
+    "example-1": {
+      "value": {
+        "uid": "7fd81594-c261-4f31-9122-841377843dd5",
+        "name": "Matematika",
+        "description": "Vse o matematiki..."
+      }
+    }
+  }
+}

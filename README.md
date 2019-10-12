@@ -1,6 +1,7 @@
 # ITS server app
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+View REST API documentation [here](https://stoplight.io/p/docs/gh/bartolomej/its-server).
 
 ## Setup
 

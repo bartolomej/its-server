@@ -1,0 +1,822 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "education",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/education/category": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "uid": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "uid": "76454139-a18d-4e44-827e-e73914d15707",
+                        "name": "Racunalnistvo",
+                        "description": "Vse o racunalnistvu..."
+                      },
+                      {
+                        "uid": "b26cffdb-b433-4645-b0e3-afa7be607bf1",
+                        "name": "Matematika",
+                        "description": "Vse o matematiki..."
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Get all categories and their properties."
+      },
+      "post": {
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Create category."
+      }
+    },
+    "/education/category/{uid}": {
+      "parameters": [
+        {
+          "type": "string",
+          "name": "uid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uid": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "uid": "76454139-a18d-4e44-827e-e73914d15707",
+                      "name": "Racunalnistvo",
+                      "description": "Vse o racunalnistvu..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "name": "NotFoundError",
+                      "description": "Category '76454139-a18dsds4-827e-e73914d15707' doesn't exist"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Get category with properties."
+      },
+      "delete": {
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "status": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "name": "ConflictError",
+                      "message": "Cannot delete entity because it is referenced"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Removes category."
+      },
+      "put": {
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Update category.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "name": "Racunalnistvo",
+                    "description": "Vse o racunalnistvu..."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/education/subcategory": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "uid": "a0a2e7f2-c36b-4024-aff6-b21495708cd9",
+                        "name": "Programiranje",
+                        "description": "SubCategory2 description",
+                        "category": "76454139-a18d-4e44-827e-e73914d15707"
+                      },
+                      {
+                        "uid": "aee331a5-669b-4a22-8166-4e123ac6d1cc",
+                        "name": "Stevila",
+                        "description": "V tem poglavju se bomo ukvarjali z stevili",
+                        "category": "b26cffdb-b433-4645-b0e3-afa7be607bf1"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Get all subcategories.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "subcategory",
+            "description": "Get subcategories by parent category."
+          }
+        ]
+      },
+      "post": {
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Create subcategory.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "name": "Programiranje",
+                    "description": "SubCategory2 description",
+                    "category": "76454139-a18d-4e44-827e-e73914d15707"
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        }
+      }
+    },
+    "/education/subcategory/{uid}": {
+      "parameters": [
+        {
+          "type": "string",
+          "name": "uid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uid": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "category": {
+                      "type": [
+                        "string",
+                        "object"
+                      ],
+                      "properties": {
+                        "uid": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "uid": "a0a2e7f2-c36b-4024-aff6-b21495708cd9",
+                      "name": "Programiranje",
+                      "description": "SubCategory2 description",
+                      "category": {
+                        "uid": "76454139-a18d-4e44-827e-e73914d15707",
+                        "name": "Racunalnistvo",
+                        "description": "Vse o racunalnistvu..."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {}
+                }
+              }
+            }
+          }
+        },
+        "description": "Get subcategory and parent category properties."
+      },
+      "put": {
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": [
+                        "string",
+                        "array"
+                      ],
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "msg": {
+                            "type": "string"
+                          },
+                          "param": {
+                            "type": "string"
+                          },
+                          "location": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "name": "BadRequestError",
+                      "message": "Invalid request body",
+                      "description": [
+                        {
+                          "msg": "Invalid value",
+                          "param": "name",
+                          "location": "body"
+                        },
+                        {
+                          "msg": "Invalid value",
+                          "param": "description",
+                          "location": "body"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Update subcategory.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "name": "Programiranje",
+                    "description": "SubCategory2 description",
+                    "category": "76454139-a18d-4e44-827e-e73914d15707"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Delete subcategory."
+      }
+    },
+    "/education/course": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "uid": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "tags": {
+                        "type": [
+                          "string",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "created": {
+                        "type": "string"
+                      },
+                      "subcategories": {
+                        "type": [
+                          "string",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "properties": {
+                    "uid": {
+                      "type": "string"
+                    },
+                    "": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "uid": "26aca5f6-424e-4d94-8964-c18c0462ec52",
+                        "title": "Vizualizacija kompleksnih stevil",
+                        "description": "Kaj so kompleksna in realna stevila ? Izdelajte preprosto vizualizacijo...",
+                        "tags": [
+                          "stevila",
+                          "programiranje",
+                          "vizualizacije",
+                          "javascript"
+                        ],
+                        "content": "# Test content",
+                        "created": "2019-10-12",
+                        "subcategories": [
+                          "10cb0038-338a-4d6c-a957-127c03dad18b",
+                          "35e554c6-060a-4b77-a86f-65404fcaee25"
+                        ]
+                      },
+                      {
+                        "uid": "8f9fd10b-e285-43c8-a867-d58b24ce3086",
+                        "title": "Osnove programiranja v Pythony",
+                        "description": "Tukaj se boste naucili osnove programskega jezika Python, \n     ki je zelo popularen med mladimi programerji",
+                        "tags": [
+                          "python",
+                          "programiranje"
+                        ],
+                        "content": "# Test content",
+                        "created": "2019-10-12",
+                        "subcategories": [
+                          "35e554c6-060a-4b77-a86f-65404fcae,
+      "post": {
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Create course.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "subcategories": {
+                    "type": [
+                      "string",
+                      "array"
+                    ],
+                    "items": {
+                      "type": [
+                        "number",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "uid": "26aca5f6-424e-4d94-8964-c18c0462ec52",
+                    "title": "Vizualizacija kompleksnih stevil",
+                    "description": "Kaj so kompleksna in realna stevila ? Izdelajte preprosto vizualizacijo...",
+                    "tags": "stevila,programiranje,vizualizacije,javascript",
+                    "content": "# Test content",
+                    "created": "2019-10-12",
+                    "subcategories": [
+                      {
+                        "uid": "10cb0038-338a-4d6c-a957-127c03dad18b",
+                        "name": "Stevila",
+                        "description": "V tem poglavju se bomo ukvarjali z stevili"
+                      },
+                      {
+                        "uid": "35e554c6-060a-4b77-a86f-65404fcaee25",
+                        "name": "Programiranje",
+                        "description": "SubCategory2 description"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }e25"
+ ,
+    "/education/course/{uid}": {
+      "parameters": [
+        {
+          "type": "string",
+          "name": "uid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uid": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "uid": "26aca5f6-424e-4d94-8964-c18c0462ec52",
+                      "title": "Vizualizacija kompleksnih stevil",
+                      "description": "Kaj so kompleksna in realna stevila ? Izdelajte preprosto vizualizacijo...",
+                      "tags": [
+                        "stevila",
+                        "programiranje",
+                        "vizualizacije",
+                        "javascript"
+                      ],
+                      "content": "# Test content",
+                      "created": "2019-10-12",
+                      "subcategories": [
+                        {
+                          "uid": "10cb0038-338a-4d6c-a957-127c03dad18b",
+                          "name": "Stevila",
+                          "description": "V tem poglavju se bomo ukvarjali z stevili"
+                        },
+                        {
+                          "uid": "35e554c6-060a-4b77-a86f-65404fcaee25",
+                          "name": "Programiranje",
+                          "description": "SubCategory2 description"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Get course and parent subcategories properties."
+      },
+      "delete": {
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Delete course."
+      },
+      "put": {
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Update course.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "subcategories": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "uid": "26aca5f6-424e-4d94-8964-c18c0462ec52",
+                    "title": "Vizualizacija kompleksnih stevil",
+                    "description": "Kaj so kompleksna in realna stevila ? Izdelajte preprosto vizualizacijo...",
+                    "tags": [
+                      "stevila",
+                      "programiranje",
+                      "vizualizacije",
+                      "javascript"
+                    ],
+                    "content": "# Test content",
+                    "subcategories": [
+                      "10cb0038-338a-4d6c-a957-127c03dad18b",
+                      "35e554c6-060a-4b77-a86f-65404fcaee25"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }                       ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Get all courses with properties."
+      }
+    }
+  }
+}

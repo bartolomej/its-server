@@ -1,0 +1,347 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "user",
+    "version": "1.0",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/user/{uid}": {
+      "parameters": [
+        {
+          "type": "string",
+          "name": "uid",
+          "in": "path",
+          "required": true
+        },
+        {
+          "type": "string",
+          "name": "uid",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get user",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "uid": "0fef04fd-e103-4399-9ef4-dca3b54c2e9b",
+                      "username": "jakdic12",
+                      "birthDate": "2019-10-12 18:54:29.307",
+                      "email": "jakdic12@mail.com",
+                      "website": "jakdic12-example.com",
+                      "interests": [
+                        "programming",
+                        "design",
+                        "math"
+                      ],
+                      "avatar": "/image/profile.png",
+                      "createdDate": "2019-10-12",
+                      "deactivatedDate": null,
+                      "status": "ACTIVE",
+                      "type": "USER"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Get user and their properties.",
+        "requestBody": {}
+      },
+      "put": {
+        "summary": "Update user",
+        "description": "Update user properties.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "birthDate": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "website": {
+                    "type": "string"
+                  },
+                  "interests": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "avatar": {
+                    "type": "string"
+                  },
+                  "createdDate": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "birthDate",
+                  "email",
+                  "createdDate",
+                  "type"
+                ]
+              },
+              "examples": {
+                "user example": {
+                  "value": {
+                    "uid": "0fef04fd-e103-4399-9ef4-dca3b54c2e9b",
+                    "username": "jakdic12",
+                    "birthDate": "2019-10-12 18:54:29.307",
+                    "email": "jakdic12@mail.com",
+                    "website": "jakdic12-example.com",
+                    "interests": [
+                      "programming",
+                      "design",
+                      "math"
+                    ],
+                    "avatar": "/image/profile.png",
+                    "createdDate": "2019-10-12",
+                    "deactivatedDate": null,
+                    "status": "ACTIVE",
+                    "type": "USER"
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": [
+                        "string",
+                        "array"
+                      ],
+                      "items": {}
+                    }
+                  }
+                },
+                "examples": {
+                  "invalid body": {
+                    "value": {
+                      "name": "BadRequestError",
+                      "message": "Invalid request body",
+                      "description": [
+                        {
+                          "msg": "Invalid value",
+                          "param": "username",
+                          "location": "body"
+                        },
+                        {
+                          "msg": "Invalid value",
+                          "param": "birthDate",
+                          "location": "body"
+                        },
+                        {
+                          "msg": "Invalid value",
+                          "param": "website",
+                          "location": "body"
+                        },
+                        {
+                          "msg": "Invalid value",
+                          "param": "interests",
+                          "location": "body"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict."
+          }
+        },
+        "description": "Delete user.",
+        "parameters": []
+      }
+    },
+    "/user": {
+      "get": {
+        "summary": "Get users",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "uid": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "birthDate": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "website": {
+                        "type": "string"
+                      },
+                      "interests": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "avatar": {
+                        "type": "string"
+                      },
+                      "createdDate": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": [
+                      {
+                        "uid": "02e5a72f-27be-4dad-9e61-49c365796690",
+                        "username": "kikxo",
+                        "birthDate": "2019-10-12 20:24:15.206",
+                        "email": "kikxo@mail.com",
+                        "website": "kikxo-example.com",
+                        "interests": [
+                          "programming",
+                          "design",
+                          "math"
+                        ],
+                        "avatar": "/image/profile.png",
+                        "createdDate": "2019-10-12",
+                        "deactivatedDate": null,
+                        "status": "ACTIVE",
+                        "type": "USER"
+                      },
+                      {
+                        "uid": "041968b7-18b5-4c83-8fcb-0388ca47c9d9",
+                        "username": "zdak",
+                        "birthDate": "2019-10-12 20:24:15.205",
+                        "email": "zdak@mail.com",
+                        "website": "zdak-example.com",
+                        "interests": [
+                          "programming",
+                          "design",
+                          "math"
+                        ],
+                        "avatar": "/image/profile.png",
+                        "createdDate": "2019-10-12",
+                        "deactivatedDate": null,
+                        "status": "ACTIVE",
+                        "type": "USER"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Get users and their properties."
+      },
+      "post": {
+        "summary": "Create user",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Create user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "birthDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "user@mail.com"
+                  }
+                }
+              },
+              "examples": {}
+            }
+          },
+          "description": ""
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {}
+  }
+}
