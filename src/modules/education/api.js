@@ -135,10 +135,7 @@ app.get('/education/course', async (req, res) => {
   let courses = req.query.subcategory ?
     await db.getCourses(req.query.subcategory) :
     await db.getAllCourses();
-  res.send(courses.map(c => ({
-    ...c,
-    subcategories: c.subcategories.map(s => s.uid),
-  })));
+  res.send(courses.map(parseToMinifiedCourse));
 });
 
 app.get('/education/course/:uid', async (req, res) => {
@@ -174,7 +171,9 @@ app.put('/education/course/:uid', [
     course.subcategories = await Promise.all(
       req.body.subcategories.map(async uid => await db.getSubcategoryByUid(uid))
     );
-    res.send(await db.saveCourse(course));
+    res.send(
+      parseToMinifiedCourse(await db.saveCourse(course))
+    );
   } catch (e) { next(e) }
 });
 
@@ -199,9 +198,27 @@ app.post('/education/course', [
       req.body.content,
       req.body.subcategories
     );
-    res.send(await db.saveCourse(course));
+    res.send(
+      parseToMinifiedCourse(await db.saveCourse(course))
+    );
   } catch (e) { next(e) }
 });
+
+function parseToMinifiedCourse (course) {
+  if (
+    course.subcategories.length > 0 &&
+    course.subcategories[0] instanceof Object
+  ) {
+    course.subcategories = course.subcategories.map(ele => ele.uid);
+  }
+  if (
+    course.tags.length > 0 &&
+    course.tag instanceof String
+  ) {
+    course.tags = course.tags.split(',')
+  }
+  return course;
+}
 
 
 module.exports = app;

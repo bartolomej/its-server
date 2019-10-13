@@ -86,7 +86,7 @@ module.exports.getAllSubcategories = async function (categoryUid) {
 //** COURSE QUERIES **//
 
 module.exports.saveCourse = async function (course) {
-  return await getRepository("Course").save(course);
+  return parseCourse(await getRepository("Course").save(course));
 };
 
 module.exports.removeCourse = async function (uid) {
