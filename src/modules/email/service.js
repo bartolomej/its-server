@@ -28,7 +28,7 @@ async function send (toAddress, senderName, subject, text) {
 
   let emailConfig = {
     to: toAddress,
-    from: `"${ senderName }" <${ senderEmail }>`,
+    from: `"${senderName}" <${senderEmail}>`,
     subject,
     html: template({
       text: email.getText(),

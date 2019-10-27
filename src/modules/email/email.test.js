@@ -57,7 +57,7 @@ describe('Email service tests', function () {
     let sentEmail = await service.send(
       'bartolomej.kozorog@gmail.com', 'ITS', 'Test',
       `Pozdravljen bartolomej,\n\nTo je testni email.
-       Test je potekal ob ${ new Date().toLocaleString() }\n\nEkipa ITS`
+       Test je potekal ob ${new Date().toLocaleString()}\n\nEkipa ITS`
     );
 
     let savedEmail = await db.getByUid(sentEmail.uid);
@@ -74,8 +74,8 @@ async function connectToDatabase () {
 
 async function clearDatabase () {
   await getRepository("Email")
-  .createQueryBuilder()
-  .delete()
-  .from(Email)
-  .execute();
+    .createQueryBuilder()
+    .delete()
+    .from(Email)
+    .execute();
 }

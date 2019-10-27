@@ -12,4 +12,5 @@ class Subcategory {
 
 }
 
+
 module.exports = Subcategory;

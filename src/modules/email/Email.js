@@ -1,6 +1,7 @@
 const uuid = require('uuid/v4');
 const moment = require('moment');
 
+
 class Email {
 
   constructor (toAddress, senderEmail, senderName, subject, text) {
@@ -13,10 +14,11 @@ class Email {
   }
 
   // TODO: support markdown style text syntax (bold, title)
-  getText() {
+  getText () {
     return this.text.replace(/\n/g, '<br>');
   }
 
 }
+
 
 module.exports = Email;

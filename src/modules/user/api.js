@@ -17,7 +17,9 @@ app.delete('/user/:uid', async (req, res, next) => {
   try {
     await remove(req.params.uid);
     res.send({ status: 'ok' });
-  } catch (e) { next(e) }
+  } catch (e) {
+    next(e)
+  }
 });
 
 app.post('/user', [
@@ -37,7 +39,9 @@ app.post('/user', [
       req.body.birthDate,
       req.body.email
     ));
-  } catch (e) { next(e) }
+  } catch (e) {
+    next(e)
+  }
 });
 
 app.put('/user/:uid', [
@@ -63,7 +67,9 @@ app.put('/user/:uid', [
       req.body.interests,
       req.body.avatar
     ));
-  } catch (e) { next(e) }
+  } catch (e) {
+    next(e)
+  }
 });
 
 module.exports = app;

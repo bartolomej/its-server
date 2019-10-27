@@ -34,7 +34,7 @@ module.exports.remove = async function (uid) {
 module.exports.getByUid = async function (uid) {
   let user = await getRepository("User")
     .createQueryBuilder("u")
-    .where("u.uid = :uid", {uid})
+    .where("u.uid = :uid", { uid })
     .getOne();
   if (!user) throw new NotFoundError(`User '${uid}' not found`);
   if (user.interests) user.interests = user.interests.split(',');
@@ -43,8 +43,8 @@ module.exports.getByUid = async function (uid) {
 
 module.exports.getAll = async function () {
   let users = await getRepository("User")
-  .createQueryBuilder("u")
-  .getMany();
+    .createQueryBuilder("u")
+    .getMany();
   users.forEach(u => {
     if (u.interests) {
       u.interests = u.interests.split(',')
@@ -53,7 +53,7 @@ module.exports.getAll = async function () {
   return users;
 };
 
-function formatError(e, user) {
+function formatError (e, user) {
   let value = e.message.split("'")[1];
   let field = user.getFieldName(value);
   let formatted =

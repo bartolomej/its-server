@@ -15,7 +15,7 @@ app.get('/education', (req, res) => {
 /** CATEGORY ENDPOINTS **/
 
 app.get('/education/category', async (req, res) => {
-    res.send(await db.getAllCategories());
+  res.send(await db.getAllCategories());
 });
 
 app.get('/education/category/:uid', async (req, res) => {
@@ -26,7 +26,9 @@ app.delete('/education/category/:uid', async (req, res, next) => {
   try {
     await db.removeCategory(req.params.uid);
     res.send({ status: 'ok' });
-  } catch (e) { next(e) }
+  } catch (e) {
+    next(e)
+  }
 });
 
 app.put('/education/category/:uid', [
@@ -44,7 +46,9 @@ app.put('/education/category/:uid', [
     category.name = req.body.name;
     category.description = req.body.description;
     res.send(await db.saveCategory(category));
-  } catch (e) { next(e) }
+  } catch (e) {
+    next(e)
+  }
 });
 
 app.post('/education/category', [
@@ -63,7 +67,9 @@ app.post('/education/category', [
       req.body.description,
     );
     res.send(await db.saveCategory(category));
-  } catch (e) { next(e) }
+  } catch (e) {
+    next(e)
+  }
 });
 
 
@@ -85,7 +91,9 @@ app.delete('/education/subcategory/:uid', async (req, res, next) => {
   try {
     await db.removeSubcategory(req.params.uid);
     res.send({ status: 'ok' });
-  } catch (e) { next(e) }
+  } catch (e) {
+    next(e)
+  }
 });
 
 app.put('/education/subcategory/:uid', [
@@ -103,7 +111,9 @@ app.put('/education/subcategory/:uid', [
     subcategory.name = req.body.name;
     subcategory.description = req.body.description;
     res.send(await db.saveSubcategory(subcategory));
-  } catch (e) { next(e) }
+  } catch (e) {
+    next(e)
+  }
 });
 
 app.post('/education/subcategory', [
@@ -125,7 +135,9 @@ app.post('/education/subcategory', [
       category
     );
     res.send(await db.saveSubcategory(subcategory));
-  } catch (e) { next(e) }
+  } catch (e) {
+    next(e)
+  }
 });
 
 
@@ -146,7 +158,9 @@ app.delete('/education/course/:uid', async (req, res, next) => {
   try {
     await db.removeCourse(req.params.uid);
     res.send({ status: 'ok' });
-  } catch (e) { next(e) }
+  } catch (e) {
+    next(e)
+  }
 });
 
 app.put('/education/course/:uid', [
@@ -174,7 +188,9 @@ app.put('/education/course/:uid', [
     res.send(
       parseToMinifiedCourse(await db.saveCourse(course))
     );
-  } catch (e) { next(e) }
+  } catch (e) {
+    next(e)
+  }
 });
 
 app.post('/education/course', [
@@ -201,7 +217,9 @@ app.post('/education/course', [
     res.send(
       parseToMinifiedCourse(await db.saveCourse(course))
     );
-  } catch (e) { next(e) }
+  } catch (e) {
+    next(e)
+  }
 });
 
 function parseToMinifiedCourse (course) {

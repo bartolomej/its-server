@@ -7,7 +7,7 @@ module.exports.saveEvent = async function (category) {
 module.exports.getEventByUid = async function (uid) {
   return await getRepository("Event")
     .createQueryBuilder("c")
-    .where("c.uid = :uid", {uid})
+    .where("c.uid = :uid", { uid })
     .getOne();
 };
 

@@ -27,7 +27,7 @@ module.exports.removeCategory = async function (uid) {
 module.exports.getCategoryByUid = async function (uid) {
   let category = await getRepository("Category")
     .createQueryBuilder("c")
-    .where("c.uid = :uid", {uid})
+    .where("c.uid = :uid", { uid })
     .getOne();
   return category ?
     category :
@@ -60,7 +60,7 @@ module.exports.getSubcategoryByUid = async function (uid) {
   let subcategory = await getRepository("Subcategory")
     .createQueryBuilder("s")
     .leftJoinAndSelect("s.category", "category")
-    .where("s.uid = :uid", {uid})
+    .where("s.uid = :uid", { uid })
     .getOne();
   return subcategory ?
     subcategory :
@@ -69,10 +69,10 @@ module.exports.getSubcategoryByUid = async function (uid) {
 
 module.exports.getSubcategories = async function (categoryUid) {
   return await getRepository("Subcategory")
-  .createQueryBuilder("s")
-  .leftJoinAndSelect("s.category", "category")
-  .where("s.category = :categoryUid", {categoryUid})
-  .getMany();
+    .createQueryBuilder("s")
+    .leftJoinAndSelect("s.category", "category")
+    .where("s.category = :categoryUid", { categoryUid })
+    .getMany();
 };
 
 module.exports.getAllSubcategories = async function (categoryUid) {
@@ -102,7 +102,7 @@ module.exports.getCourses = async function (subcategoryUid) {
   let courses = await getRepository("Course")
     .createQueryBuilder("c")
     .leftJoinAndSelect("c.subcategories", "subcategories")
-    .where("subcategories.uid = :subcategoryUid", {subcategoryUid})
+    .where("subcategories.uid = :subcategoryUid", { subcategoryUid })
     .getMany();
   return parseCourses(courses);
 };
@@ -119,14 +119,14 @@ module.exports.getCourseByUid = async function (uid) {
   let course = await getRepository("Course")
     .createQueryBuilder("c")
     .leftJoinAndSelect("c.subcategories", "subcategories")
-    .where("c.uid = :uid", {uid})
+    .where("c.uid = :uid", { uid })
     .getOne();
   return course ?
     parseCourse(course) :
     new NotFoundError("Course not found", `Course '${uid}' doesn't exist`);
 };
 
-function parseCourses(courses) {
+function parseCourses (courses) {
   return courses.map(c => ({
     ...c,
     tags: c.tags ? c.tags.split(',') : '',
@@ -134,7 +134,7 @@ function parseCourses(courses) {
   }))
 }
 
-function parseCourse(course) {
+function parseCourse (course) {
   course.tags = course.tags ? course.tags.split(',') : null;
   return course;
 }

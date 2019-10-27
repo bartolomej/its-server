@@ -1,7 +1,8 @@
 class Event {
-  constructor() {
+  constructor () {
 
   }
 }
+
 
 module.exports = Event;

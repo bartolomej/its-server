@@ -6,6 +6,7 @@ const types = {
   USER: 'USER'
 };
 
+
 class User {
 
   constructor (username, birthDate, email, type, website = null, interests, avatar = null) {
@@ -22,11 +23,11 @@ class User {
     this.type = type;
   }
 
-  static create(username, birthDate, email) {
+  static create (username, birthDate, email) {
     return new User(username, birthDate, email, types.USER);
   }
 
-  static createAdmin(username, birthDate, email) {
+  static createAdmin (username, birthDate, email) {
     return new User(username, birthDate, email, types.ADMIN);
   }
 
@@ -43,5 +44,6 @@ class User {
   }
 
 }
+
 
 module.exports = User;

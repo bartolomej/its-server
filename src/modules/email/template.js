@@ -1,4 +1,4 @@
-module.exports = ({text, email, officeAddress, unsubscribeUrl, legalName}) => `
+module.exports = ({ text, email, officeAddress, unsubscribeUrl, legalName }) => `
 <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width :600px; padding: 10px 0">
     <tbody>
     <tr style="border-bottom:solid 1px #ccc">

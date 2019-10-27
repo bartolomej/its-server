@@ -54,16 +54,16 @@ describe('Education repository tests', function () {
     let course1 = new Course(
       'course1',
       'Test course 1',
-      ['test', 'tag'],
+      [ 'test', 'tag' ],
       '# Test content',
-      [subCategory1, subCategory2]
+      [ subCategory1, subCategory2 ]
     );
     let course2 = new Course(
       'course2',
       'Test course 2',
-      ['test', 'tag'],
+      [ 'test', 'tag' ],
       '# Test content',
-      [subCategory1]
+      [ subCategory1 ]
     );
 
     let savedCategory1 = await db.saveCategory(category1);
