@@ -53,10 +53,7 @@ async function deactivate (uid) {
       podas povratne informacije o platformi.\n\n
       Ekipa ITS`
   );
-  // TODO: call other modules
 }
-
-// TODO: follow feature
 
 
 module.exports = {

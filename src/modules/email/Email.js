@@ -13,7 +13,7 @@ class Email {
     this.datetime = moment().toDate();
   }
 
-  // TODO: support markdown style text syntax (bold, title)
+  // TODO LOW PRIORITY: support markdown style text syntax (bold, title)
   getText () {
     return this.text.replace(/\n/g, '<br>');
   }

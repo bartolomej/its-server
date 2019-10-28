@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e232e958-b230-4ea6-a022-08a47389a3c4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/modules/user/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/user/api.js" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="its-server" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>courseUid</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/modules/user/service.js" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="yoAtLloH" />
+  </component>
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
+  </component>
+  <component name="ProjectId" id="1RVkdKWob8rlbhBAsJYaQUpdTcR" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SearchEverywhereHistoryKey" value="Subcategory&#9;null&#9;null&#10;SubCategory&#9;null&#9;null&#10;DefaultNamingStrategy&#9;null&#9;null&#10;StringUtils&#9;FILE&#9;file:///Users/bartolomejkozorog/WebstormProjects/its-server/node_modules/typeorm/util/StringUtils.d.ts" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/.env" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="javascript.nodejs.core.library.configured.version" value="10.8.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/modules/user/db" />
+      <recent name="$PROJECT_DIR$/src/modules/email/db" />
+      <recent name="$PROJECT_DIR$/src/modules/user" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Jest.Education repository tests.should save and fetch Category, SubCategories, Courses">
+    <configuration name="Education repository tests" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/modules/education/education.test.js" />
+      <test-names>
+        <test-name value="Education repository tests" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Education repository tests.should save and fetch Category, SubCategories, Courses" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/modules/education/education.test.js" />
+      <test-names>
+        <test-name value="Education repository tests" />
+        <test-name value="should save and fetch Category, SubCategories, Courses" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Email repository tests" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/modules/email/email.test.js" />
+      <test-names>
+        <test-name value="Email repository tests" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="User service tests" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/modules/user/user.test.js" />
+      <test-names>
+        <test-name value="User service tests" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="User service tests.should register users with same username" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/modules/user/user.test.js" />
+      <test-names>
+        <test-name value="User service tests" />
+        <test-name value="should register users with same username" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="start" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="start" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Jest.Education repository tests" />
+      <item itemvalue="Jest.Education repository tests.should save and fetch Category, SubCategories, Courses" />
+      <item itemvalue="Jest.Email repository tests" />
+      <item itemvalue="Jest.User service tests" />
+      <item itemvalue="Jest.User service tests.should register users with same username" />
+      <item itemvalue="npm.start" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.Education repository tests.should save and fetch Category, SubCategories, Courses" />
+        <item itemvalue="Jest.Education repository tests" />
+        <item itemvalue="Jest.Email repository tests" />
+        <item itemvalue="Jest.User service tests" />
+        <item itemvalue="Jest.User service tests.should register users with same username" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e232e958-b230-4ea6-a022-08a47389a3c4" name="Default" comment="" />
+      <created>1569156691488</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1569156691488</updated>
+      <workItem from="1569156694845" duration="1722000" />
+      <workItem from="1569184411305" duration="4617000" />
+      <workItem from="1569222656190" duration="10981000" />
+      <workItem from="1569254263855" duration="7858000" />
+      <workItem from="1569267298900" duration="2037000" />
+      <workItem from="1569300013822" duration="37012000" />
+      <workItem from="1569613664956" duration="27000" />
+      <workItem from="1569759743577" duration="935000" />
+      <workItem from="1569760845061" duration="287000" />
+      <workItem from="1569761159770" duration="484000" />
+      <workItem from="1569761673642" duration="32000" />
+      <workItem from="1569761722777" duration="116000" />
+      <workItem from="1569761860007" duration="606000" />
+      <workItem from="1569762563561" duration="170000" />
+      <workItem from="1569762798005" duration="116000" />
+      <workItem from="1569763005881" duration="124000" />
+      <workItem from="1569763150285" duration="250000" />
+      <workItem from="1569765146824" duration="594000" />
+      <workItem from="1569884101895" duration="14000" />
+      <workItem from="1570901623211" duration="275000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initial commit">
+      <created>1569158440177</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1569158440177</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Implemented typeorm, added example model &amp; schema">
+      <created>1569189768969</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1569189768969</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Implemented email module">
+      <created>1569269320478</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1569269320479</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Implemented user module">
+      <created>1569269332703</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1569269332703</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Implemented education module, moved Schemas to /db">
+      <created>1569424483649</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1569424483649</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Changed object creation strategy, implemented basic REST endpoints">
+      <created>1569440424878</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1569440424878</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="User_service_tests - 2019.09.25 at 19h 29m 43s.xml">
+      <configuration name="User service tests" configurationId="JavaScriptTestRunnerJest" />
+    </history-entry>
+    <history-entry file="User_service_tests_should_register_users_with_same_username - 2019.09.25 at 19h 32m 23s.xml">
+      <configuration name="User service tests.should register users with same username" configurationId="JavaScriptTestRunnerJest" />
+    </history-entry>
+    <history-entry file="User_service_tests - 2019.09.25 at 19h 32m 50s.xml">
+      <configuration name="User service tests" configurationId="JavaScriptTestRunnerJest" />
+    </history-entry>
+    <history-entry file="User_service_tests - 2019.09.25 at 19h 33m 32s.xml">
+      <configuration name="User service tests" configurationId="JavaScriptTestRunnerJest" />
+    </history-entry>
+    <history-entry file="Email_repository_tests - 2019.09.25 at 19h 47m 36s.xml">
+      <configuration name="Email repository tests" configurationId="JavaScriptTestRunnerJest" />
+    </history-entry>
+    <history-entry file="Education_repository_tests - 2019.09.25 at 19h 50m 54s.xml">
+      <configuration name="Education repository tests" configurationId="JavaScriptTestRunnerJest" />
+    </history-entry>
+    <history-entry file="Education_repository_tests - 2019.09.25 at 19h 52m 08s.xml">
+      <configuration name="Education repository tests" configurationId="JavaScriptTestRunnerJest" />
+    </history-entry>
+    <history-entry file="Education_repository_tests - 2019.09.25 at 19h 53m 18s.xml">
+      <configuration name="Education repository tests" configurationId="JavaScriptTestRunnerJest" />
+    </history-entry>
+    <history-entry file="Education_repository_tests - 2019.09.25 at 19h 53m 41s.xml">
+      <configuration name="Education repository tests" configurationId="JavaScriptTestRunnerJest" />
+    </history-entry>
+    <history-entry file="Education_repository_tests_should_save_and_fetch_Category,_SubCategories,_Courses - 2019.09.25 at 20h 03m 29s.xml">
+      <configuration name="Education repository tests.should save and fetch Category, SubCategories, Courses" configurationId="JavaScriptTestRunnerJest" />
+    </history-entry>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit" />
+    <MESSAGE value="Implemented typeorm, added example model &amp; schema" />
+    <MESSAGE value="Implemented email module" />
+    <MESSAGE value="Implemented user module" />
+    <MESSAGE value="Implemented education module, moved Schemas to /db" />
+    <MESSAGE value="Changed object creation strategy, implemented basic REST endpoints" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed object creation strategy, implemented basic REST endpoints" />
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>e</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>user</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>user.getFieldName('test@m')</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>user.getFieldName('testUserName')</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>user.getFieldName('ACTIVE')</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>allCourses</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>categories</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>subcategories2</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>subcategories1</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+</project>

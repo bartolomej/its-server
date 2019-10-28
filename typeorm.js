@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = {
+module.exports.normal = {
   type: 'mysql',
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -16,3 +16,16 @@ module.exports = {
     path.join(__dirname, 'src', 'modules', 'admin', 'db/*')
   ]
 };
+
+module.exports.withConnectionString = connectionObject => ({
+  "type": "mysql",
+  "host": connectionObject.hosts[0].host,
+  "port": connectionObject.hosts[0].port,
+  "username": connectionObject.username,
+  "password": connectionObject.password,
+  "database": connectionObject.endpoint,
+  "synchronize": true,
+  "entities": [
+    "src/models/*.js"
+  ]
+});
