@@ -1,4 +1,4 @@
-<p align="center"> <img src="https://i.ibb.co/tBqtw39/its-logo-2.png" width="240" /> </p>
+<p align="center"> <img src="https://i.ibb.co/YXHPYQY/its-logo-3.png" width="240" /> </p>
 
 # ITS server app
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
