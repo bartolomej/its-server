@@ -14,15 +14,17 @@ describe('User repository tests', function () {
 
   beforeAll(async () => {
     process.env.NODE_ENV = 'test';
-    await connectToDatabase();
+    await require('../../setup/enviroment')();
+    await require('../../setup/db')();
   });
 
   beforeEach(async () => {
     await clearDatabase();
   });
 
-  afterAll(() => {
+  afterAll(async () => {
     process.env.NODE_ENV = 'development';
+    await require('../../setup/db').close();
   });
 
   afterEach(async () => {
@@ -30,7 +32,7 @@ describe('User repository tests', function () {
   });
 
   it('should save and fetch single user', async function () {
-    let user = new User();
+    let user = User.create();
     user.username = 'testUserName';
     user.createdDate = new Date();
     user.birthDate = new Date();
@@ -38,6 +40,7 @@ describe('User repository tests', function () {
     user.website = 'example.com';
     user.interests = 'programming,design';
     user.avatar = '/image/profile.png';
+    user.type = 'USER';
 
     let savedUser = await db.save(user);
     let fetchedUser = await db.getByUid(user.uid);
@@ -81,11 +84,13 @@ describe('User service tests', function () {
 
   beforeAll(async () => {
     process.env.NODE_ENV = 'test';
-    await connectToDatabase();
+    await require('../../setup/enviroment')();
+    await require('../../setup/db')();
   });
 
-  afterAll(() => {
+  afterAll(async () => {
     process.env.NODE_ENV = 'development';
+    await require('../../setup/db').close();
   });
 
   beforeEach(async () => {
@@ -141,11 +146,6 @@ describe('User service tests', function () {
   });
 
 });
-
-
-async function connectToDatabase () {
-  await createConnection(require('../../../typeorm'));
-}
 
 async function clearDatabase () {
   await getRepository("User")

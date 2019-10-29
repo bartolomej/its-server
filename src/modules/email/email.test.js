@@ -14,11 +14,13 @@ describe('Email repository tests', function () {
 
   beforeAll(async () => {
     process.env.NODE_ENV = 'test';
-    await connectToDatabase();
+    await require('../../setup/enviroment')();
+    await require('../../setup/db')();
   });
 
-  afterAll(() => {
+  afterAll(async () => {
     process.env.NODE_ENV = 'development';
+    await require('../../setup/db').close();
   });
 
   afterEach(async () => {
@@ -37,7 +39,7 @@ describe('Email repository tests', function () {
     let fetchedEmail = await db.getByUid('1');
 
     expect(savedEmail).toEqual(email);
-    expect(fetchedEmail).toEqual(email);
+    expect({ ...fetchedEmail, datetime: null}).toEqual({ ...email, datetime: null});
   })
 
 });
@@ -46,7 +48,14 @@ describe('Email repository tests', function () {
 describe('Email service tests', function () {
 
   beforeAll(async () => {
-    await connectToDatabase();
+    process.env.NODE_ENV = 'test';
+    await require('../../setup/enviroment')();
+    await require('../../setup/db')();
+  });
+
+  afterAll(async () => {
+    process.env.NODE_ENV = 'development';
+    await require('../../setup/db').close();
   });
 
   afterEach(async () => {
@@ -62,15 +71,10 @@ describe('Email service tests', function () {
 
     let savedEmail = await db.getByUid(sentEmail.uid);
 
-    expect(savedEmail).toEqual(sentEmail);
+    expect({...savedEmail, datetime: null}).toEqual({...sentEmail, datetime: null});
   })
 
 });
-
-
-async function connectToDatabase () {
-  await createConnection(require('../../../typeorm'));
-}
 
 async function clearDatabase () {
   await getRepository("Email")

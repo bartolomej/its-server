@@ -48,7 +48,7 @@ const users = [
 ];
 
 (async function () {
-  await createConnection(require('../typeorm'));
+  await createConnection(require('../src/typeorm'));
 
   try {
     await remove("User");

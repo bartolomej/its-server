@@ -31,11 +31,20 @@ EMAIL_PASSWORD = <email-password>
 
 // app config
 PORT = <app-port>
+NODE_ENV = <current-enviroment>
 ```
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm start`
+Starts ITS application with node.
+
+### `npm run start-dev`
+Starts ITS application with nodemon process manager. 
+Requires nodemon installed globally.
+Install with `npm i nodemon -g`.
 
 ### `npm run test-data`
 Inserts test data. Script is located in `scripts/mock-data.js`
@@ -47,3 +56,57 @@ Removes all data. Script is located in `scripts/clear-data.js`
 
 - check for style warnings: `npx standard` or `npm test`
 - automatically format code: `npx standard --fix`
+
+## Project structure
+
+```
+├── README.md
+├── package-lock.json
+├── package.json
+├── scripts
+│   ├── clear-data.js
+│   └── mock-data.js
+└── src
+    ├── app.js
+    ├── errors.js
+    ├── modules
+    │   ├── education
+    │   │   ├── Category.js
+    │   │   ├── Course.js
+    │   │   ├── Subcategory.js
+    │   │   ├── api.js
+    │   │   ├── db
+    │   │   │   ├── Category.schema.js
+    │   │   │   ├── Course.schema.js
+    │   │   │   ├── Subcategory.schema.js
+    │   │   │   └── repository.js
+    │   │   └── education.test.js
+    │   ├── email
+    │   │   ├── Email.js
+    │   │   ├── api.js
+    │   │   ├── db
+    │   │   │   ├── Email.schema.js
+    │   │   │   └── repository.js
+    │   │   ├── email.test.js
+    │   │   ├── service.js
+    │   │   └── template.js
+    │   ├── events
+    │   │   ├── Event.js
+    │   │   ├── api.js
+    │   │   ├── db
+    │   │   │   ├── EventSchema.js
+    │   │   │   └── repository.js
+    │   │   └── listeners.js
+    │   └── user
+    │       ├── User.js
+    │       ├── api.js
+    │       ├── db
+    │       │   ├── User.schema.js
+    │       │   └── repository.js
+    │       ├── service.js
+    │       └── user.test.js
+    └── setup
+        ├── db.js
+        ├── enviroment.js
+        └── server.js
+```

@@ -7,7 +7,7 @@ require('dotenv').config({
 
 
 (async function () {
-  await createConnection(require('../typeorm'));
+  await createConnection(require('../src/typeorm'));
   await remove("User");
   await remove("Course");
   await remove("Subcategory");

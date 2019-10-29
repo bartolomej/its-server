@@ -15,15 +15,17 @@ describe('Education repository tests', function () {
 
   beforeAll(async () => {
     process.env.NODE_ENV = 'test';
-    await connectToDatabase();
+    await require('../../setup/enviroment')();
+    await require('../../setup/db')();
   });
 
   beforeEach(async () => {
     await clearDatabase();
   });
 
-  afterAll(() => {
+  afterAll(async () => {
     process.env.NODE_ENV = 'development';
+    await require('../../setup/db').close();
   });
 
   afterEach(async () => {
@@ -97,11 +99,6 @@ describe('Education repository tests', function () {
   });
 
 });
-
-
-async function connectToDatabase () {
-  await createConnection(require('../../../typeorm'));
-}
 
 async function clearDatabase () {
   await remove("Course");

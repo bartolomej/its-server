@@ -35,10 +35,10 @@ async function update (uid, username, birthDate, email, website, interests, avat
   user.birthDate = birthDate;
   user.email = email;
   user.website = website;
-  user.interests = interests instanceof Array ? interests.join(',') : interests;
+  user.interests = interests && interests instanceof Array ? interests.join(',') : interests;
   user.avatar = avatar;
   let updatedUser = await db.save(user);
-  updatedUser.interests = updatedUser.interests.split(',');
+  updatedUser.interests = updatedUser.interests && updatedUser.interests.split(',');
   return updatedUser;
 }
 

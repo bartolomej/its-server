@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e232e958-b230-4ea6-a022-08a47389a3c4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/modules/user/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/user/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +48,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.env" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="javascript.nodejs.core.library.configured.version" value="10.8.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="12.12.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -200,6 +201,9 @@
       <workItem from="1569765146824" duration="594000" />
       <workItem from="1569884101895" duration="14000" />
       <workItem from="1570901623211" duration="275000" />
+      <workItem from="1572274276173" duration="344000" />
+      <workItem from="1572274719894" duration="30000" />
+      <workItem from="1572274768801" duration="58000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1569158440177</created>
