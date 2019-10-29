@@ -1,4 +1,4 @@
-<p align="center"> <img src="https://i.ibb.co/PW0pLgP/Raunalnikodrutvo-LOGO.png" width="240" /> </p>
+<p align="center"> <img src="https://i.ibb.co/tBqtw39/its-logo-2.png" width="240" /> </p>
 
 # ITS server app
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
@@ -61,54 +61,34 @@ Removes all data. Script is located in `scripts/clear-data.js`
 
 ## Project structure
 
-```
+<pre>
 ├── README.md
-├── package-lock.json
-├── package.json
+├── Procfile -> <i>config for deployment on Heroku</i>
+├── package-lock.json -> <i>dependency lock file</i>
+├── package.json -> <i>package declaration file</i>
 ├── scripts
-│   ├── clear-data.js
-│   └── mock-data.js
+│   ├── clear-data.js -> <i>removes data from db</i>
+│   └── mock-data.js -> <i>writes test data to db</i>
 └── src
-    ├── app.js
-    ├── errors.js
-    ├── modules
+    ├── app.js -> <i>entry script (main file)</i>
+    ├── errors.js -> <i>defined domain errors objects</i>
+    ├── modules -> <i>folder contains submodules</i>
     │   ├── education
-    │   │   ├── Category.js
-    │   │   ├── Course.js
-    │   │   ├── Subcategory.js
-    │   │   ├── api.js
+    │   │   ├── Category.js -> <i>Category object model</i>
+    │   │   ├── Course.js -> <i>Course object model</i>
+    │   │   ├── Subcategory.js -> <i>Subcategory object model</i>
+    │   │   ├── api.js -> <i>external HTTP endpoints for education</i>
     │   │   ├── db
-    │   │   │   ├── Category.schema.js
-    │   │   │   ├── Course.schema.js
-    │   │   │   ├── Subcategory.schema.js
-    │   │   │   └── repository.js
-    │   │   └── education.test.js
+    │   │   │   ├── Category.schema.js -> <i>Category DB schema definition</i>
+    │   │   │   ├── Course.schema.js -> <i>Course DB schema definition</i>
+    │   │   │   ├── Subcategory.schema.js -> <i>Subcategory DB schema definition</i>
+    │   │   │   └── repository.js -> <i>db functions performing CRUD operations</i>
+    │   │   └── education.test.js -> <i>education module tests</i>
     │   ├── email
-    │   │   ├── Email.js
-    │   │   ├── api.js
-    │   │   ├── db
-    │   │   │   ├── Email.schema.js
-    │   │   │   └── repository.js
-    │   │   ├── email.test.js
-    │   │   ├── service.js
-    │   │   └── template.js
     │   ├── events
-    │   │   ├── Event.js
-    │   │   ├── api.js
-    │   │   ├── db
-    │   │   │   ├── EventSchema.js
-    │   │   │   └── repository.js
-    │   │   └── listeners.js
     │   └── user
-    │       ├── User.js
-    │       ├── api.js
-    │       ├── db
-    │       │   ├── User.schema.js
-    │       │   └── repository.js
-    │       ├── service.js
-    │       └── user.test.js
     └── setup
-        ├── db.js
-        ├── enviroment.js
-        └── server.js
-```
+        ├── db.js -> <i>DB setup script</i>
+        ├── environment.js -> <i>environment setup script</i>
+        └── server.js -> <i>server setup script</i>
+</pre>
