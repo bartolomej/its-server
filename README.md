@@ -38,18 +38,18 @@ NODE_ENV = <current-enviroment>
 
 In the project directory, you can run:
 
-### `npm start`
+1. ##### `npm start`
 Starts ITS application with node.
 
-### `npm run start-dev`
+2. ##### `npm run start-dev`
 Starts ITS application with nodemon process manager. 
 Requires nodemon installed globally.
 Install with `npm i nodemon -g`.
 
-### `npm run test-data`
+3. ##### `npm run test-data`
 Inserts test data. Script is located in `scripts/mock-data.js`
 
-### `npm run remove-data`
+4. ##### `npm run remove-data`
 Removes all data. Script is located in `scripts/clear-data.js`
 
 ### Code style

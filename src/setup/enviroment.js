@@ -1,15 +1,17 @@
 function validateEnvironmentVars () {
-  const usedVars = [
+  const requiredVars = [
     'NODE_ENV',
     'PORT',
     'DB_PORT',
     'DB_HOST',
     'DB_USER',
     'DB_PASSWORD',
-    'DB_NAME'
+    'DB_NAME',
+    'EMAIL_USER',
+    'EMAIL_PASSWORD'
   ];
   let unsetVars = [];
-  for (let variable of usedVars) {
+  for (let variable of requiredVars) {
     if (!(!!process.env[variable])) {
       unsetVars.push(variable);
     }

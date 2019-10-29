@@ -10,8 +10,8 @@ function transport () {
     throw new Error('Email env variables not set');
   }
   return nodemailer.createTransport({
-    service: EMAIL_SERVICE,
-    host: EMAIL_HOST,
+    service: EMAIL_SERVICE ? EMAIL_SERVICE : 'gmail',
+    host: EMAIL_HOST ? EMAIL_HOST : 'gmail',
     secure: false,
     auth: {
       user: EMAIL_USER,
