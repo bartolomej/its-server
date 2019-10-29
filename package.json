@@ -9,6 +9,7 @@
   "scripts": {
     "test": "jest",
     "start": "node src/app.js",
+    "build": "npm run test-data",
     "start-dev": "nodemon src/app.js",
     "test-data": "node scripts/mock-data.js",
     "remove-data": "node scripts/clear-data.js"

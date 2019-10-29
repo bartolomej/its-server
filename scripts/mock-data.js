@@ -1,10 +1,5 @@
-const createConnection = require('typeorm').createConnection;
 const getRepository = require('typeorm').getRepository;
-const path = require('path');
 const uuid = require('uuid/v4');
-require('dotenv').config({
-  path: path.join(__dirname, '..', '.env')
-});
 
 const Category = require('../src/modules/education/Category');
 const Subcategory = require('../src/modules/education/Subcategory');
@@ -48,7 +43,8 @@ const users = [
 ];
 
 (async function () {
-  await createConnection(require('../src/typeorm'));
+  await require('../src/setup/enviroment');
+  await require('../src/setup/db')();
 
   try {
     await remove("User");
@@ -60,7 +56,6 @@ const users = [
     console.error(e);
     process.exit(1);
   }
-
 
   try {
     await insertEducationData();
@@ -112,10 +107,10 @@ async function insertEducationData () {
 }
 
 async function insertUserData (users) {
-  users.forEach(async username => {
+  for (const username of users) {
     let user = createUser(username);
     await userDb.save(user);
-  });
+  }
 }
 
 function createUser (username) {

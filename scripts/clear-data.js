@@ -1,13 +1,7 @@
-const createConnection = require('typeorm').createConnection;
-const getRepository = require('typeorm').getRepository;
-const path = require('path');
-require('dotenv').config({
-  path: path.join(__dirname, '..', '.env')
-});
-
-
 (async function () {
-  await createConnection(require('../src/typeorm'));
+  await require('../src/setup/enviroment');
+  await require('../src/setup/db')();
+
   await remove("User");
   await remove("Course");
   await remove("Subcategory");
@@ -17,7 +11,7 @@ require('dotenv').config({
 })();
 
 async function remove(modelName) {
-  await getRepository(modelName)
+  await require('typeorm').getRepository(modelName)
     .createQueryBuilder()
     .delete()
     .from(modelName)

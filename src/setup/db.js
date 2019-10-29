@@ -22,8 +22,9 @@ module.exports.close = async function () {
 
 function typeormConfig () {
 
-  const config = (host, port, database, username, password ) => ({
-    host, port, username, password, database,
+  const createConfig = (host, port, database, username, password) => ({
+    host: host || 3306,
+    port, username, password, database,
     type: 'mysql',
     synchronize: true,
     logging: false,
@@ -37,18 +38,20 @@ function typeormConfig () {
 
   // parse mysql connection string if present
   if (process.env.DATABASE_URL) {
-    console.log('FOUND MYSQL CONNECTION STRING');
     const parser = new ConnectionStringParser({ scheme: "mysql", hosts: [] });
     let connectionObject = parser.parse(process.env.DATABASE_URL);
-    return config(
+    let config = createConfig(
       connectionObject.hosts[0].host,
       connectionObject.hosts[0].port,
       connectionObject.endpoint,
       connectionObject.password,
       connectionObject.username
     );
+    console.log('FOUND MYSQL CONNECTION STRING');
+    console.log(config);
+    return config;
   } else {
-    return config(
+    return createConfig(
       process.env.DB_HOST,
       process.env.DB_PORT,
       process.env.DB_NAME,

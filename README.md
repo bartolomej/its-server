@@ -1,3 +1,5 @@
+<p align="center"> <img src="https://i.ibb.co/PW0pLgP/Raunalnikodrutvo-LOGO.png" width="240" /> </p>
+
 # ITS server app
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -42,7 +44,7 @@ In the project directory, you can run:
 Starts ITS application with node.
 
 2. ##### `npm run start-dev`
-Starts ITS application with nodemon process manager. 
+Starts ITS application with nodemon process manager. <br>
 Requires nodemon installed globally.
 Install with `npm i nodemon -g`.
 
