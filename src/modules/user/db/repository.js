@@ -1,17 +1,21 @@
 const getRepository = require('typeorm').getRepository;
 const { ConflictError, NotFoundError } = require('../../../errors');
 
+
+
 module.exports.save = async function (user) {
-  return await getRepository("User").save(user)
+  return await getRepository("User")
+    .save(user)
     .catch(e => {
       if (e.code === 'ER_DUP_ENTRY') {
-        let { formatted, value } = formatError(e, user);
+        let value = e.message.split("'")[1];
         throw new ConflictError(
-          `${formatted} '${value}' taken`,
+          `Duplicate entry '${value}'`,
           'Please use a different value'
         );
+      } else {
+        throw e;
       }
-      throw e;
     });
 };
 
@@ -52,12 +56,3 @@ module.exports.getAll = async function () {
   });
   return users;
 };
-
-function formatError (e, user) {
-  let value = e.message.split("'")[1];
-  let field = user.getFieldName(value);
-  let formatted =
-    field.substring(0, 1).toUpperCase() +
-    field.substring(1, field.length);
-  return { formatted, value };
-}

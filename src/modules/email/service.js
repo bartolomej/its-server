@@ -21,6 +21,11 @@ function transport () {
 }
 
 async function send (toAddress, senderName, subject, text) {
+  // escape sending mail in 'test' mode
+  if (process.env.NODE_ENV === 'test') {
+    return;
+  }
+
   const transporter = transport();
   const senderEmail = process.env.EMAIL_USER;
 

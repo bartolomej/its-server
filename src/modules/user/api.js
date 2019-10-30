@@ -1,8 +1,18 @@
 const app = require('express').Router();
-const { check, validationResult } = require('express-validator');
+const { body } = require('express-validator');
+const validate = require('../../validator');
 const { register, update, deactivate } = require('./service');
-const { getByUid, getAll, remove } = require('./db/repository');
-const { BadRequestError } = require('../../errors');
+const { getByUid, getAll } = require('./db/repository');
+
+
+// describe fields for HTTP request body
+const userValidationRules = () => ([
+  body('username').isString(),
+  body('birthDate').isString(),
+  body('email').isEmail(),
+  body('website').isString().optional(),
+  body('interests').isArray().optional()
+]);
 
 
 app.get('/user', async (req, res, next) => {
@@ -13,60 +23,44 @@ app.get('/user/:uid', async (req, res, next) => {
   res.send(await getByUid(req.params.uid));
 });
 
+app.post('/user',
+  userValidationRules(),
+  validate,
+  async (req, res, next) => {
+    try {
+      res.send(await register(
+        req.body.username,
+        req.body.birthDate,
+        req.body.email
+      ));
+    } catch (e) {
+      next(e)
+    }
+});
+
+app.put('/user/:uid',
+  userValidationRules(),
+  validate,
+  async (req, res, next) => {
+    try {
+      res.send(await update(
+        req.params.uid,
+        req.body.username,
+        req.body.birthDate,
+        req.body.email,
+        req.body.website,
+        req.body.interests,
+        req.body.avatar
+      ));
+    } catch (e) {
+      next(e)
+    }
+});
+
 app.delete('/user/:uid', async (req, res, next) => {
   try {
-    await remove(req.params.uid);
+    await deactivate(req.params.uid);
     res.send({ status: 'ok' });
-  } catch (e) {
-    next(e)
-  }
-});
-
-app.post('/user', [
-  check('username').isString(),
-  check('birthDate').isString(),
-  check('email').isEmail()
-], async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new BadRequestError(
-      "Invalid request body", errors.array()
-    ));
-  }
-  try {
-    res.send(await register(
-      req.body.username,
-      req.body.birthDate,
-      req.body.email
-    ));
-  } catch (e) {
-    next(e)
-  }
-});
-
-app.put('/user/:uid', [
-  check('username').isString(),
-  check('birthDate').isString(),
-  check('email').isString(),
-  check('website').isString(),
-  check('interests').isArray(),
-], async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new BadRequestError(
-      "Invalid request body", errors.array()
-    ));
-  }
-  try {
-    res.send(await update(
-      req.params.uid,
-      req.body.username,
-      req.body.birthDate,
-      req.body.email,
-      req.body.website,
-      req.body.interests,
-      req.body.avatar
-    ));
   } catch (e) {
     next(e)
   }

@@ -33,6 +33,7 @@ function typeormConfig () {
       path.join(__dirname, '..', 'modules', 'education', 'db', '*.schema.js'),
       path.join(__dirname, '..', 'modules', 'email', 'db/*.schema.js'),
       path.join(__dirname, '..', 'modules', 'user', 'db/*.schema.js'),
+      path.join(__dirname, '..', 'modules', 'events', 'db/*.schema.js'),
     ]
   });
 

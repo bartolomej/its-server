@@ -1,13 +1,21 @@
 const getRepository = require('typeorm').getRepository;
 
-module.exports.saveEvent = async function (category) {
-  return await getRepository("Event").save(category);
+
+module.exports.saveEvent = async function (event) {
+  return await getRepository("Event").save(event);
 };
 
-module.exports.getEventByUid = async function (uid) {
+module.exports.getEventByCreator = async function (uid) {
   return await getRepository("Event")
     .createQueryBuilder("c")
-    .where("c.uid = :uid", { uid })
+    .where("c.creator = :uid", { uid })
+    .getOne();
+};
+
+module.exports.getEventByType = async function (type) {
+  return await getRepository("Event")
+    .createQueryBuilder("c")
+    .where("c.type = :type", { type })
     .getOne();
 };
 

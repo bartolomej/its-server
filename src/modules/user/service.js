@@ -1,23 +1,18 @@
-const winston = require('winston');
-const { EventEmitter } = require('events');
-const emitter = new EventEmitter();
-
+const { emit } = require('../events/index');
 const mail = require('../email/service');
 const db = require('./db/repository');
 const User = require('./User');
 
 
-let logger = winston.createLogger({
-  format: winston.format.json(),
-  defaultMeta: { service: 'user-service' },
-  transports: [ new winston.transports.Console ]
-});
-
-
 async function register (username, birthDate, email) {
-  let user = User.create(username, birthDate, email);
-  let savedUser = await db.save(user);
-  if (process.env.NODE_ENV === 'test') return savedUser;
+  let user = await db.save(User.create(username, birthDate, email));
+  // emit registration event
+  emit({
+    creatorId: user.uid,
+    type: 'USER_REGISTERED',
+    description: `User ${user.uid} registered to its.`,
+  });
+  // send registration email with welcome message
   await mail.send(email, 'ITS', 'Dobrodosel!',
     `Pozdravljen ${username},\n\n
       Dobrodoles na izobrazevalni platformi ITSs
@@ -26,7 +21,7 @@ async function register (username, birthDate, email) {
       ki imajo zeljo po novem znanju in izkusnjah.\n\n
       >Ekipa ITS`
   );
-  return savedUser;
+  return user;
 }
 
 async function update (uid, username, birthDate, email, website, interests, avatar) {
@@ -38,6 +33,12 @@ async function update (uid, username, birthDate, email, website, interests, avat
   user.interests = interests && interests instanceof Array ? interests.join(',') : interests;
   user.avatar = avatar;
   let updatedUser = await db.save(user);
+  // emit update event
+  emit({
+    creatorId: user.uid,
+    type: 'USER_UPDATED',
+    description: `User ${user.uid} updated his/her profile.`,
+  });
   updatedUser.interests = updatedUser.interests && updatedUser.interests.split(',');
   return updatedUser;
 }
@@ -46,6 +47,14 @@ async function deactivate (uid) {
   let user = await db.getByUid(uid);
   user.status = 'DEACTIVATED';
   user.deactivatedDate = new Date();
+  await db.save(user);
+  // emit deactivation event
+  emit({
+    uid,
+    type: 'USER_DEACTIVATED',
+    description: `User ${uid} deactivated his/her account.`,
+  });
+  // send deactivation email asking for feedback
   await mail.send(user.email, 'ITS', '',
     `Pozdravljen ${user.username},\n\n
       Zal nam je da odhajas.

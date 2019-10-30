@@ -1,18 +1,25 @@
 const app = require('express').Router();
-const { check, validationResult } = require('express-validator');
-const db = require('./db/repository');
-const { BadRequestError } = require("../../errors");
-const Course = require('./Course');
-const Category = require('./Category');
-const Subcategory = require('./Subcategory');
+const { body } = require('express-validator');
+const validate = require('../../validator');
+const { createCategory, updateCategory, removeCategory } = require('./service');
+const { createSubcategory, updateSubcategory, removeSubcategory } = require('./service');
+const { createCourse, updateCourse, removeCourse } = require('./service');
+
 
 
 app.get('/education', (req, res) => {
-  res.send('Education API endpoint');
+  res.send('Education API root 📚');
 });
 
 
 /** CATEGORY ENDPOINTS **/
+
+// describe fields for HTTP request body
+const categoryValidationRules = () => ([
+  body('name').isString().isLength({ min: 1 }),
+  body('description').isString().isLength({ min: 1 }),
+]);
+
 
 app.get('/education/category', async (req, res) => {
   res.send(await db.getAllCategories());
@@ -22,51 +29,39 @@ app.get('/education/category/:uid', async (req, res) => {
   res.send(await db.getCategoryByUid(req.params.uid));
 });
 
+app.post('/education/category',
+  categoryValidationRules(),
+  validate,
+  async (req, res, next) => {
+    try {
+      res.send(await createCategory({
+        name: req.body.name,
+        description: req.body.description
+      }));
+    } catch (e) {
+      next(e)
+    }
+});
+
+app.put('/education/category/:uid',
+  categoryValidationRules(),
+  validate,
+  async (req, res, next) => {
+    try {
+      res.send(await updateCategory({
+        uid: req.params.uid,
+        name: req.body.name,
+        description: req.body.description
+      }));
+    } catch (e) {
+      next(e)
+    }
+});
+
 app.delete('/education/category/:uid', async (req, res, next) => {
   try {
-    await db.removeCategory(req.params.uid);
+    await removeCategory(req.params.uid);
     res.send({ status: 'ok' });
-  } catch (e) {
-    next(e)
-  }
-});
-
-app.put('/education/category/:uid', [
-  check('name').isString().isLength({ min: 1 }),
-  check('description').isString().isLength({ min: 1 }),
-], async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new BadRequestError(
-      "Invalid request body", errors.array()
-    ));
-  }
-  try {
-    let category = await db.getCategoryByUid(req.params.uid);
-    category.name = req.body.name;
-    category.description = req.body.description;
-    res.send(await db.saveCategory(category));
-  } catch (e) {
-    next(e)
-  }
-});
-
-app.post('/education/category', [
-  check('name').isString().isLength({ min: 1 }),
-  check('description').isString().isLength({ min: 1 }),
-], async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new BadRequestError(
-      "Invalid request body", errors.array()
-    ));
-  }
-  try {
-    let category = new Category(
-      req.body.name,
-      req.body.description,
-    );
-    res.send(await db.saveCategory(category));
   } catch (e) {
     next(e)
   }
@@ -74,6 +69,14 @@ app.post('/education/category', [
 
 
 /** SUBCATEGORY ENDPOINTS **/
+
+// describe fields for HTTP request body
+const subcategoryValidationRules = () => ([
+  body('name').isString(),
+  body('description').isString(),
+  body('category').isString(),
+]);
+
 
 app.get('/education/subcategory', async (req, res) => {
   let subcategories = await db.getAllSubcategories();
@@ -87,54 +90,38 @@ app.get('/education/subcategory/:uid', async (req, res) => {
   res.send(await db.getSubcategoryByUid(req.params.uid));
 });
 
+app.post('/education/subcategory',
+  subcategoryValidationRules(),
+  validate,
+  async (req, res, next) => {
+    try {
+      res.send(await createSubcategory({
+        name: req.body.name,
+        description: req.body.description
+      }));
+    } catch (e) {
+      next(e)
+    }
+  });
+
+app.put('/education/subcategory/:uid',
+  subcategoryValidationRules(),
+  validate,
+  async (req, res, next) => {
+    try {
+      res.send(await updateSubcategory({
+        name: req.body.name,
+        description: req.body.description
+      }));
+    } catch (e) {
+      next(e)
+    }
+});
+
 app.delete('/education/subcategory/:uid', async (req, res, next) => {
   try {
-    await db.removeSubcategory(req.params.uid);
+    await removeSubcategory(req.params.uid);
     res.send({ status: 'ok' });
-  } catch (e) {
-    next(e)
-  }
-});
-
-app.put('/education/subcategory/:uid', [
-  check('name').isString(),
-  check('description').isString(),
-], async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new BadRequestError(
-      "Invalid request body", errors.array()
-    ));
-  }
-  try {
-    let subcategory = await db.getSubcategoryByUid(req.params.uid);
-    subcategory.name = req.body.name;
-    subcategory.description = req.body.description;
-    res.send(await db.saveSubcategory(subcategory));
-  } catch (e) {
-    next(e)
-  }
-});
-
-app.post('/education/subcategory', [
-  check('name').isString(),
-  check('description').isString(),
-  check('category').isString(),
-], async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new BadRequestError(
-      "Invalid request body", errors.array()
-    ));
-  }
-  try {
-    let category = await db.getCategoryByUid(req.body.category);
-    let subcategory = new Subcategory(
-      req.body.name,
-      req.body.description,
-      category
-    );
-    res.send(await db.saveSubcategory(subcategory));
   } catch (e) {
     next(e)
   }
@@ -142,6 +129,16 @@ app.post('/education/subcategory', [
 
 
 /** COURSE ENDPOINTS **/
+
+// describe fields for HTTP request body
+const courseValidationRules = () => ([
+  body('title').isString().isLength({ min: 1 }),
+  body('description').isString(),
+  body('tags').isArray(),
+  body('content').isString(),
+  body('subcategories').isArray(),
+]);
+
 
 app.get('/education/course', async (req, res) => {
   let courses = req.query.subcategory ?
@@ -154,69 +151,48 @@ app.get('/education/course/:uid', async (req, res) => {
   res.send(await db.getCourseByUid(req.params.uid));
 });
 
+app.post('/education/course',
+  courseValidationRules(),
+  validate,
+  async (req, res, next) => {
+  try {
+    res.send(
+      parseToMinifiedCourse(await createCourse({
+        title: req.body.title,
+        description: req.body.description,
+        tags: req.body.tags,
+        content: req.body.content,
+        subcategories: req.body.subcategories
+      }))
+    );
+  } catch (e) {
+    next(e)
+  }
+});
+
+app.put('/education/course/:uid',
+  courseValidationRules(),
+  validate,
+  async (req, res, next) => {
+    try {
+      res.send(
+        parseToMinifiedCourse(await updateCourse({
+          uid: req.params.uid,
+          description: req.body.description,
+          tags: req.body.tags,
+          content: req.body.content,
+          subcategories: req.body.subcategories
+        }))
+      );
+    } catch (e) {
+      next(e)
+    }
+});
+
 app.delete('/education/course/:uid', async (req, res, next) => {
   try {
-    await db.removeCourse(req.params.uid);
+    await removeCourse(req.params.uid);
     res.send({ status: 'ok' });
-  } catch (e) {
-    next(e)
-  }
-});
-
-app.put('/education/course/:uid', [
-  check('title').isString(),
-  check('description').isString(),
-  check('tags').isArray(),
-  check('content').isString(),
-  check('subcategories').isArray(),
-], async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new BadRequestError(
-      "Invalid request body", errors.array()
-    ));
-  }
-  try {
-    let course = await db.getCourseByUid(req.params.uid);
-    course.title = req.body.title;
-    course.description = req.body.description;
-    course.tags = req.body.tags.join(',');
-    course.content = req.body.content;
-    course.subcategories = await Promise.all(
-      req.body.subcategories.map(async uid => await db.getSubcategoryByUid(uid))
-    );
-    res.send(
-      parseToMinifiedCourse(await db.saveCourse(course))
-    );
-  } catch (e) {
-    next(e)
-  }
-});
-
-app.post('/education/course', [
-  check('title').isString().isLength({ min: 1 }),
-  check('description').isString(),
-  check('tags').isArray(),
-  check('content').isString(),
-  check('subcategories').isArray(),
-], async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return next(new BadRequestError(
-      "Invalid request body", errors.array()
-    ));
-  }
-  try {
-    let course = new Course(
-      req.body.title,
-      req.body.description,
-      req.body.tags,
-      req.body.content,
-      req.body.subcategories
-    );
-    res.send(
-      parseToMinifiedCourse(await db.saveCourse(course))
-    );
   } catch (e) {
     next(e)
   }

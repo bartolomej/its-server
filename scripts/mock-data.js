@@ -43,7 +43,7 @@ const users = [
 ];
 
 (async function () {
-  await require('../src/setup/enviroment');
+  await require('../src/setup/enviroment')();
   await require('../src/setup/db')();
 
   try {
