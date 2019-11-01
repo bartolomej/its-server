@@ -9,6 +9,7 @@ const Category = require('./Category');
 const Subcategory = require('./Subcategory');
 const Course = require('./Course');
 const db = require('./db/repository');
+const service = require('./service');
 
 
 describe('Education repository tests', function () {

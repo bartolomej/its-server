@@ -1,15 +1,11 @@
 const app = require('express').Router();
 const { body } = require('express-validator');
 const validate = require('../../validator');
+const db = require('./db/repository');
+const service = require('./service');
 const { createCategory, updateCategory, removeCategory } = require('./service');
 const { createSubcategory, updateSubcategory, removeSubcategory } = require('./service');
 const { createCourse, updateCourse, removeCourse } = require('./service');
-
-
-
-app.get('/education', (req, res) => {
-  res.send('Education API root 📚');
-});
 
 
 /** CATEGORY ENDPOINTS **/
@@ -20,6 +16,10 @@ const categoryValidationRules = () => ([
   body('description').isString().isLength({ min: 1 }),
 ]);
 
+
+app.get('/education', async (req, res) => {
+  res.send(await service.getCategoriesWithCourses());
+});
 
 app.get('/education/category', async (req, res) => {
   res.send(await db.getAllCategories());

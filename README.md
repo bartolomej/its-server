@@ -2,6 +2,7 @@
 
 # ITS server app
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![Heroku](https://heroku-badge.herokuapp.com/?app=rd-its)
 
 View REST API documentation [here](https://stoplight.io/p/docs/gh/bartolomej/its-server).
 
@@ -17,23 +18,23 @@ To install and work on ITS run:
 
 ## Environment variables:
 
+Have a look at `.env.example` file in repository root.
 ```
-// database config
-DB_PORT = <port-number>
-DB_HOST = <host-address>
-DB_USER = <username>
-DB_PASSWORD = <password>
-DB_NAME = <name>
+DB_PORT = 3306
+DB_HOST = localhost
+DB_USER = <your-mysql-user>
+DB_PASSWORD = <your-mysql-password>
+DB_NAME = <mysql-db-name>
 
-// email config
+// app config
+PORT = <app-port> / default: 3000
+NODE_ENV = <current-enviroment> -> development / production
+
+// those are credentials for test email account needed to send emails
 EMAIL_HOST = gmail
 EMAIL_SERVICE = gmail
 EMAIL_USER = <email>
 EMAIL_PASSWORD = <email-password>
-
-// app config
-PORT = <app-port>
-NODE_ENV = <current-enviroment>
 ```
 
 ## Available Scripts

@@ -44,7 +44,9 @@ const users = [
 
 (async function () {
   await require('../src/setup/enviroment')();
-  await require('../src/setup/db')();
+  try {
+    await require('../src/setup/db')();
+  } catch (e) { console.log(e.message) }
 
   try {
     await remove("User");
@@ -147,3 +149,10 @@ async function remove(modelName) {
     .from(modelName)
     .execute();
 }
+
+module.exports = {
+  ...module.exports,
+  insertEducationData,
+  insertMailData,
+  insertUserData
+};

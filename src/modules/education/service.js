@@ -4,6 +4,24 @@ const Category = require('./Category');
 const Subcategory = require('./Subcategory');
 
 
+module.exports.getCategoriesWithCourses = async function () {
+  let sortedArray = [];
+  let categories = await db.getAllCategories();
+  for (let category of categories) {
+    let courses = [];
+    let subcategories = await db.getSubcategories(category.uid);
+    for (let subcategory of subcategories) {
+      let courseSection = await db.getCourses(subcategory.uid);
+      courses = [
+        ...courses,
+        ...courseSection.map(c => ({...c, subcategories: undefined}))
+      ];
+    }
+    sortedArray.push({ categoryName: category.name, courses });
+  }
+  return sortedArray;
+};
+
 /** CATEGORY METHODS **/
 
 async function createCategory ({ name, description }) {
@@ -38,11 +56,11 @@ async function removeCategory (uid) {
 }
 
 module.exports = {
+  ...module.exports,
   createCategory,
   updateCategory,
   removeCategory
 };
-
 
 /** SUBCATEGORY METHODS **/
 
@@ -85,7 +103,6 @@ module.exports = {
   updateSubcategory,
   removeSubcategory
 };
-
 
 /** COURSE METHODS **/
 
