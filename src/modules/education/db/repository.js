@@ -34,9 +34,11 @@ module.exports.getCategoryByUid = async function (uid) {
     new NotFoundError("Category not found", `Category '${uid}' doesn't exist`);
 };
 
-module.exports.getAllCategories = async function () {
+module.exports.getAllCategories = async function (onlyVisible = true) {
   return await getRepository("Category")
     .createQueryBuilder("c")
+    .where(`c.visible = true`)
+    .orWhere(`c.visible = ${onlyVisible ? 'true' : 'false'}`)
     .getMany();
 };
 
@@ -67,18 +69,22 @@ module.exports.getSubcategoryByUid = async function (uid) {
     new NotFoundError("Subcategory not found", `Subcategory '${uid}' doesn't exist`);
 };
 
-module.exports.getSubcategories = async function (categoryUid) {
+module.exports.getSubcategories = async function (categoryUid, onlyVisible = true) {
   return await getRepository("Subcategory")
     .createQueryBuilder("s")
     .leftJoinAndSelect("s.category", "category")
     .where("s.category = :categoryUid", { categoryUid })
+    .where(`c.visible = true`)
+    .orWhere(`c.visible = ${onlyVisible ? 'true' : 'false'}`)
     .getMany();
 };
 
-module.exports.getAllSubcategories = async function (categoryUid) {
+module.exports.getAllSubcategories = async function (categoryUid, onlyVisible = true) {
   return await getRepository("Subcategory")
     .createQueryBuilder("s")
     .leftJoinAndSelect("s.category", "category")
+    .where(`c.visible = true`)
+    .orWhere(`c.visible = ${onlyVisible ? 'true' : 'false'}`)
     .getMany();
 };
 
@@ -98,19 +104,23 @@ module.exports.removeCourse = async function (uid) {
     .execute();
 };
 
-module.exports.getCourses = async function (subcategoryUid) {
+module.exports.getCourses = async function (subcategoryUid, onlyVisible = true) {
   let courses = await getRepository("Course")
     .createQueryBuilder("c")
     .leftJoinAndSelect("c.subcategories", "subcategories")
     .where("subcategories.uid = :subcategoryUid", { subcategoryUid })
+    .where(`c.visible = true`)
+    .orWhere(`c.visible = ${onlyVisible ? 'true' : 'false'}`)
     .getMany();
   return parseCourses(courses);
 };
 
-module.exports.getAllCourses = async function () {
+module.exports.getAllCourses = async function (onlyVisible = true) {
   let courses = await getRepository("Course")
     .createQueryBuilder("c")
     .leftJoinAndSelect("c.subcategories", "subcategories")
+    .where(`c.visible = true`)
+    .orWhere(`c.visible = ${onlyVisible ? 'true' : 'false'}`)
     .getMany();
   return parseCourses(courses);
 };

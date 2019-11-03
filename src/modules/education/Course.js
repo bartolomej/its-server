@@ -12,6 +12,8 @@ class Course {
     this.content = content;
     this.created = moment().toDate();
     this.subcategories = subcategories;
+    // new course is invisible by default
+    this.visible = false;
   }
 
 }

@@ -64,32 +64,32 @@ Removes all data. Script is located in `scripts/clear-data.js`
 
 <pre>
 ├── README.md
-├── Procfile -> <i>config for deployment on Heroku</i>
-├── package-lock.json -> <i>dependency lock file</i>
-├── package.json -> <i>package declaration file</i>
+├── Procfile                                # <i>config for deployment on Heroku</i>
+├── package-lock.json                       # <i>dependency lock file</i>
+├── package.json                            # <i>package declaration file</i>
 ├── scripts
-│   ├── clear-data.js -> <i>removes data from db</i>
-│   └── mock-data.js -> <i>writes test data to db</i>
+│   ├── clear-data.js                       # <i>removes data from db</i>
+│   └── mock-data.js                        # <i>writes test data to db</i>
 └── src
-    ├── app.js -> <i>entry script (main file)</i>
-    ├── errors.js -> <i>defined domain errors objects</i>
-    ├── modules -> <i>folder contains submodules</i>
+    ├── app.js                              # <i>entry script (main file)</i>
+    ├── errors.js                           # <i>defined domain errors objects</i>
+    ├── modules                             # <i>folder contains submodules</i>
     │   ├── education
-    │   │   ├── Category.js -> <i>Category object model</i>
-    │   │   ├── Course.js -> <i>Course object model</i>
-    │   │   ├── Subcategory.js -> <i>Subcategory object model</i>
-    │   │   ├── api.js -> <i>external HTTP endpoints for education</i>
+    │   │   ├── Category.js                 # <i>Category object model</i>
+    │   │   ├── Course.js                   # <i>Course object model</i>
+    │   │   ├── Subcategory.js              # <i>Subcategory object model</i>
+    │   │   ├── api.js                      # <i>external HTTP endpoints for education</i>
     │   │   ├── db
-    │   │   │   ├── Category.schema.js -> <i>Category DB schema definition</i>
-    │   │   │   ├── Course.schema.js -> <i>Course DB schema definition</i>
-    │   │   │   ├── Subcategory.schema.js -> <i>Subcategory DB schema definition</i>
-    │   │   │   └── repository.js -> <i>db functions performing CRUD operations</i>
-    │   │   └── education.test.js -> <i>education module tests</i>
+    │   │   │   ├── Category.schema.js      # <i>Category DB schema definition</i>
+    │   │   │   ├── Course.schema.js        # <i>Course DB schema definition</i>
+    │   │   │   ├── Subcategory.schema.js   # Subcategory DB schema definition</i>
+    │   │   │   └── repository.js           # <i>db functions performing CRUD operations</i>
+    │   │   └── education.test.js           # <i>education module tests</i>
     │   ├── email
     │   ├── events
     │   └── user
     └── setup
-        ├── db.js -> <i>DB setup script</i>
-        ├── environment.js -> <i>environment setup script</i>
-        └── server.js -> <i>server setup script</i>
+        ├── db.js                           # <i>DB setup script</i>
+        ├── environment.js                  # <i>environment setup script</i>
+        └── server.js                       # <i>server setup script</i>
 </pre>

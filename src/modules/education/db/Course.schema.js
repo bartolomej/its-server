@@ -1,6 +1,7 @@
 const EntitySchema = require('typeorm').EntitySchema;
 const Course = require('../Course');
 
+
 module.exports = new EntitySchema({
   name: 'Course',
   target: Course,
@@ -24,6 +25,9 @@ module.exports = new EntitySchema({
     created: {
       type: 'date'
     },
+    visible: {
+      type: 'boolean'
+    }
   },
   relations: {
     subcategories: {
@@ -33,4 +37,4 @@ module.exports = new EntitySchema({
       cascade: true
     }
   }
-})
+});

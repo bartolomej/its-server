@@ -9,8 +9,9 @@ const types = {
 
 class User {
 
-  constructor (username, birthDate, email, type, website = null, interests, avatar = null) {
+  constructor (username, birthDate, email, type, gender = null, website = null, interests, avatar = null) {
     this.uid = uuid();
+    this.gender = gender;
     this.username = username;
     this.birthDate = moment(birthDate).toDate();
     this.email = email;

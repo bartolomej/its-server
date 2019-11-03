@@ -21,6 +21,6 @@ module.exports = function () {
 
 };
 
-module.exports.emit = function ({ type, creatorId, description }) {
+module.exports.emitEvent = function ({ type, creatorId, description }) {
   itsEventEmitter.emit('itsEvent', type, creatorId, description);
 };

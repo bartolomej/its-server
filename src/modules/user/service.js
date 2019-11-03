@@ -1,4 +1,4 @@
-const { emit } = require('../events/index');
+const { emitEvent } = require('../events/index');
 const mail = require('../email/service');
 const db = require('./db/repository');
 const User = require('./User');
@@ -7,7 +7,7 @@ const User = require('./User');
 async function register (username, birthDate, email) {
   let user = await db.save(User.create(username, birthDate, email));
   // emit registration event
-  emit({
+  emitEvent({
     creatorId: user.uid,
     type: 'USER_REGISTERED',
     description: `User ${user.uid} registered to its.`,
@@ -34,7 +34,7 @@ async function update (uid, username, birthDate, email, website, interests, avat
   user.avatar = avatar;
   let updatedUser = await db.save(user);
   // emit update event
-  emit({
+  emitEvent({
     creatorId: user.uid,
     type: 'USER_UPDATED',
     description: `User ${user.uid} updated his/her profile.`,
@@ -49,7 +49,7 @@ async function deactivate (uid) {
   user.deactivatedDate = new Date();
   await db.save(user);
   // emit deactivation event
-  emit({
+  emitEvent({
     uid,
     type: 'USER_DEACTIVATED',
     description: `User ${uid} deactivated his/her account.`,

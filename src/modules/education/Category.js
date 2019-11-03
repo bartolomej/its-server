@@ -7,6 +7,8 @@ class Category {
     this.uid = uuid();
     this.name = name;
     this.description = description;
+    // new category is invisible by default
+    this.visible = false;
   }
 
 }

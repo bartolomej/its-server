@@ -1,5 +1,6 @@
-const EntitySchema = require('typeorm').EntitySchema
-const Subcategory = require('../Subcategory')
+const EntitySchema = require('typeorm').EntitySchema;
+const Subcategory = require('../Subcategory');
+
 
 module.exports = new EntitySchema({
   name: 'Subcategory',
@@ -14,6 +15,9 @@ module.exports = new EntitySchema({
     },
     description: {
       type: 'varchar'
+    },
+    visible: {
+      type: 'boolean'
     }
   },
   relations: {
@@ -24,4 +28,4 @@ module.exports = new EntitySchema({
       cascade: true
     }
   }
-})
+});

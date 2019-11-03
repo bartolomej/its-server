@@ -1,6 +1,7 @@
 const EntitySchema = require('typeorm').EntitySchema;
 const Category = require('../Category');
 
+
 module.exports = new EntitySchema({
   name: 'Category',
   target: Category,
@@ -14,6 +15,9 @@ module.exports = new EntitySchema({
     },
     description: {
       type: 'varchar'
+    },
+    visible: {
+      type: 'boolean'
     }
   }
 });

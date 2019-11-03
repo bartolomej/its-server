@@ -1,5 +1,6 @@
-const EntitySchema = require('typeorm').EntitySchema
-const User = require('../User')
+const EntitySchema = require('typeorm').EntitySchema;
+const User = require('../User');
+
 
 module.exports = new EntitySchema({
   name: 'User',
@@ -8,6 +9,10 @@ module.exports = new EntitySchema({
     uid: {
       primary: true,
       type: 'varchar'
+    },
+    gender: {
+      type: 'varchar',
+      nullable: true
     },
     username: {
       type: 'varchar',
@@ -40,10 +45,10 @@ module.exports = new EntitySchema({
       type: 'varchar'
     },
     createdDate: {
-      type: 'date'
+      type: 'datetime'
     },
     deactivatedDate: {
-      type: 'date',
+      type: 'datetime',
       nullable: true
     }
   }

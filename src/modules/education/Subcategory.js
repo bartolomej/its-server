@@ -8,6 +8,8 @@ class Subcategory {
     this.name = name;
     this.description = description;
     this.category = category;
+    // new subcategory is invisible by default
+    this.visible = false;
   }
 
 }
