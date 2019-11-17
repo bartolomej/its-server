@@ -150,7 +150,7 @@ async function insertMailData (n) {
     email.toAddress = `${toUser}@mail.com`;
     email.subject = `Test mail ${index}`;
     email.text = 'This is a test email. ';
-    await emailDb.save(email);
+    await emailDb.saveEmail(email);
   }
 }
 

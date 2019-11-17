@@ -1,9 +1,11 @@
 const getRepository = require('typeorm').getRepository;
 const { ConflictError, NotFoundError } = require('../../../errors');
 
-
-
 module.exports.save = async function (user) {
+  user.interests = user.interests &&
+    user.interests instanceof Array
+    ? user.interests.join(',')
+    : user.interests;
   return await getRepository("User")
     .save(user)
     .catch(e => {

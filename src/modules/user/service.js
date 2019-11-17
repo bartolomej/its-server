@@ -2,20 +2,54 @@ const { emitEvent } = require('../events/index');
 const mail = require('../email/service');
 const db = require('./db/repository');
 const User = require('./User');
+const auth = require('../../auth');
+const winston = require('winston');
 
+/**
+ * @description
+ * Create winston service-level logger.
+ * @type {winston.Logger}
+ */
+const logger = winston.createLogger({
+  format: winston.format.json(),
+  defaultMeta: { service: 'user' },
+  transports: [
+    new winston.transports.Console
+  ]
+});
 
-async function register (username, birthDate, email) {
-  let user = await db.save(User.create(username, birthDate, email));
+/**
+ * @description
+ * Creates new user account.
+ * @param password
+ * @param username
+ * @param birthDate
+ * @param email
+ * @returns {Promise<User>}
+ */
+async function register (password, username, birthDate, email) {
+  let user = User.create(username, birthDate, email);
+  try {
+    await auth.createUser({ uid: user.uid, email, password })
+  } catch (e) {
+    logger.log({
+      level: 'error',
+      message: `Firebase user creation failed`,
+    });
+    // log the full error
+    console.log(e);
+  }
   // emit registration event
   emitEvent({
     creatorId: user.uid,
     type: 'USER_REGISTERED',
     description: `User ${user.uid} registered to its.`,
   });
+  await db.save(user);
   // send registration email with welcome message
   await mail.send(email, 'ITS', 'Dobrodosel!',
     `Pozdravljen ${username},\n\n
-      Dobrodoles na izobrazevalni platformi ITSs
+      Dobrodoles na izobrazevalni platformi ITS,
       Racunalniskega Drustva Nova Gorica. 
       Platforma je namenjena predvsem mladim tehnicarjem,
       ki imajo zeljo po novem znanju in izkusnjah.\n\n
@@ -24,13 +58,25 @@ async function register (username, birthDate, email) {
   return user;
 }
 
+/**
+ * @description
+ * Updates whole user object. Returns updated user.
+ * @param uid {string}
+ * @param username {string}
+ * @param birthDate {Date}
+ * @param email {string}
+ * @param website {string}
+ * @param interests {Array}
+ * @param avatar {string}
+ * @returns {Promise<User>}
+ */
 async function update (uid, username, birthDate, email, website, interests, avatar) {
   let user = await db.getByUid(uid);
   user.username = username;
   user.birthDate = birthDate;
   user.email = email;
   user.website = website;
-  user.interests = interests && interests instanceof Array ? interests.join(',') : interests;
+  user.interests = interests;
   user.avatar = avatar;
   let updatedUser = await db.save(user);
   // emit update event
@@ -43,6 +89,12 @@ async function update (uid, username, birthDate, email, website, interests, avat
   return updatedUser;
 }
 
+/**
+ * @description
+ * Reactivates / removes user account.
+ * @param uid {string}
+ * @returns {Promise<void>}
+ */
 async function deactivate (uid) {
   let user = await db.getByUid(uid);
   user.status = 'DEACTIVATED';

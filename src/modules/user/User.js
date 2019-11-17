@@ -1,6 +1,11 @@
 const uuid = require('uuid/v4');
 const moment = require('moment');
 
+/**
+ * @description
+ * Defines user types.
+ * @type {{ADMIN: string, USER: string}}
+ */
 const types = {
   ADMIN: 'ADMIN',
   USER: 'USER'
