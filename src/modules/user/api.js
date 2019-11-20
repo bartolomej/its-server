@@ -7,6 +7,7 @@ const { getByUid, getAll } = require('./db/repository');
 
 // describe fields for HTTP request body
 const userValidationRules = () => ([
+  body('password').isString(),
   body('username').isString(),
   body('birthDate').isString(),
   body('email').isEmail(),
@@ -29,6 +30,7 @@ app.post('/user',
   async (req, res, next) => {
     try {
       res.send(await register(
+        req.body.password,
         req.body.username,
         req.body.birthDate,
         req.body.email
@@ -45,6 +47,7 @@ app.put('/user/:uid',
     try {
       res.send(await update(
         req.params.uid,
+        req.body.password,
         req.body.username,
         req.body.birthDate,
         req.body.email,

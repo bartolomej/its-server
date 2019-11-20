@@ -30,7 +30,10 @@ const logger = winston.createLogger({
 async function register (password, username, birthDate, email) {
   let user = User.create(username, birthDate, email);
   try {
-    await auth.createUser({ uid: user.uid, email, password })
+    // don't create firebase user yet
+    if (process.env.NODE_ENV !== 'production') {
+      await auth.createUser({ uid: user.uid, email, password })
+    }
   } catch (e) {
     logger.log({
       level: 'error',
@@ -62,6 +65,7 @@ async function register (password, username, birthDate, email) {
  * @description
  * Updates whole user object. Returns updated user.
  * @param uid {string}
+ * @param password {string}
  * @param username {string}
  * @param birthDate {Date}
  * @param email {string}
@@ -70,7 +74,8 @@ async function register (password, username, birthDate, email) {
  * @param avatar {string}
  * @returns {Promise<User>}
  */
-async function update (uid, username, birthDate, email, website, interests, avatar) {
+async function update (uid, password, username, birthDate, email, website, interests, avatar) {
+  // TODO: update firebase user account
   let user = await db.getByUid(uid);
   user.username = username;
   user.birthDate = birthDate;
