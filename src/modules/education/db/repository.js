@@ -74,8 +74,8 @@ module.exports.getSubcategories = async function (categoryUid, onlyVisible = tru
     .createQueryBuilder("s")
     .leftJoinAndSelect("s.category", "category")
     .where("s.category = :categoryUid", { categoryUid })
-    .where(`c.visible = true`)
-    .orWhere(`c.visible = ${onlyVisible ? 'true' : 'false'}`)
+    .where(`s.visible = true`)
+    .orWhere(`s.visible = ${onlyVisible ? 'true' : 'false'}`)
     .getMany();
 };
 
