@@ -83,8 +83,8 @@ module.exports.getAllSubcategories = async function (categoryUid, onlyVisible = 
   return await getRepository("Subcategory")
     .createQueryBuilder("s")
     .leftJoinAndSelect("s.category", "category")
-    .where(`c.visible = true`)
-    .orWhere(`c.visible = ${onlyVisible ? 'true' : 'false'}`)
+    .where(`s.visible = true`)
+    .orWhere(`s.visible = ${onlyVisible ? 'true' : 'false'}`)
     .getMany();
 };
 
