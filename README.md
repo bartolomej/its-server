@@ -35,6 +35,9 @@ EMAIL_HOST = gmail
 EMAIL_SERVICE = gmail
 EMAIL_USER = <email>
 EMAIL_PASSWORD = <email-password>
+
+// firebase authentication config
+GOOGLE_APPLICATION_CREDENTIALS_FILE = firebase-admin.json
 ```
 
 ## Available Scripts

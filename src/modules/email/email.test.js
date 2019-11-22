@@ -35,8 +35,8 @@ describe('Email repository tests', function () {
     email.subject = 'Test';
     email.text = 'This is a test email';
 
-    let savedEmail = await db.save(email);
-    let fetchedEmail = await db.getByUid('1');
+    let savedEmail = await db.saveEmail(email);
+    let fetchedEmail = await db.getEmailByUid('1');
 
     expect(savedEmail).toEqual(email);
     expect({ ...fetchedEmail, datetime: null}).toEqual({ ...email, datetime: null});
@@ -69,7 +69,7 @@ describe('Email service tests', function () {
        Test je potekal ob ${new Date().toLocaleString()}\n\nEkipa ITS`
     );
 
-    let savedEmail = await db.getByUid(sentEmail.uid);
+    let savedEmail = await db.getEmailByUid(sentEmail.uid);
 
     expect({...savedEmail, datetime: null}).toEqual({...sentEmail, datetime: null});
   })

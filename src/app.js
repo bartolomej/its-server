@@ -5,6 +5,7 @@ async function initializeApp () {
   await require('./modules/events')();
   await require('./setup/db')();
   await require('./setup/server')(app);
+  await require('./setup/auth')(app);
 }
 
 // start ITS app
