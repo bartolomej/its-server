@@ -11,6 +11,11 @@ const types = {
   USER: 'USER'
 };
 
+const status = {
+  ACTIVATED: 'ACTIVATED',
+  DEACTIVATED: 'DEACTIVATED'
+};
+
 
 class User {
 
@@ -25,7 +30,7 @@ class User {
     this.avatar = avatar;
     this.createdDate = moment().toDate();
     this.deactivatedDate = null;
-    this.status = 'ACTIVE';
+    this.status = status.ACTIVATED;
     this.type = type;
   }
 
@@ -33,8 +38,17 @@ class User {
     return new User(username, birthDate, email, types.USER);
   }
 
-  static createAdmin (username, birthDate, email) {
-    return new User(username, birthDate, email, types.ADMIN);
+  static createAdmin (username, email) {
+    return new User(username, null, email, types.ADMIN);
+  }
+
+  deactivate() {
+    this.status = status.DEACTIVATED;
+    this.deactivatedDate = new Date();
+  }
+
+  isDeactivated() {
+    return this.status === status.DEACTIVATED;
   }
 
   getFieldName (value) {

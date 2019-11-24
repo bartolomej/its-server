@@ -58,10 +58,10 @@ class ConflictError extends Error {
  * The client must authenticate itself
  * to get the requested response.
  */
-class UnauthorizedError extends Error {
+class AuthorizationError extends Error {
   constructor (message, description) {
     super(message);
-    this.name = 'UnauthorizedError';
+    this.name = 'AuthorizationError';
     this.description = description;
     this.statusCode = 401;
   }
@@ -73,5 +73,5 @@ module.exports = {
   NotFoundError,
   InternalServerError,
   ConflictError,
-  UnauthorizedError
+  AuthorizationError
 };

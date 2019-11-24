@@ -18,6 +18,7 @@ module.exports = async function (app) {
   app.use(require('../modules/user/api'));
   app.use(require('../modules/email/api'));
   app.use(require('../modules/events/api'));
+  app.use(require('../modules/auth/api'));
 
   // catch 404 and forward to error handler
   app.use((req, res, next) => {

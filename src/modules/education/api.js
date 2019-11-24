@@ -6,6 +6,7 @@ const service = require('./service');
 const { createCategory, updateCategory, removeCategory } = require('./service');
 const { createSubcategory, updateSubcategory, removeSubcategory } = require('./service');
 const { createCourse, updateCourse, removeCourse } = require('./service');
+const { authAdmin, authUser } = require('../../auth');
 
 
 /** CATEGORY ENDPOINTS **/
@@ -30,6 +31,7 @@ app.get('/education/category/:uid', async (req, res) => {
 });
 
 app.post('/education/category',
+  authAdmin,
   categoryValidationRules(),
   validate,
   async (req, res, next) => {
@@ -44,6 +46,7 @@ app.post('/education/category',
 });
 
 app.put('/education/category/:uid',
+  authAdmin,
   categoryValidationRules(),
   validate,
   async (req, res, next) => {
@@ -58,7 +61,7 @@ app.put('/education/category/:uid',
     }
 });
 
-app.delete('/education/category/:uid', async (req, res, next) => {
+app.delete('/education/category/:uid', authAdmin, async (req, res, next) => {
   try {
     await removeCategory(req.params.uid);
     res.send({ status: 'ok' });
@@ -91,6 +94,7 @@ app.get('/education/subcategory/:uid', async (req, res) => {
 });
 
 app.post('/education/subcategory',
+  authAdmin,
   subcategoryValidationRules(),
   validate,
   async (req, res, next) => {
@@ -105,6 +109,7 @@ app.post('/education/subcategory',
   });
 
 app.put('/education/subcategory/:uid',
+  authAdmin,
   subcategoryValidationRules(),
   validate,
   async (req, res, next) => {
@@ -118,7 +123,7 @@ app.put('/education/subcategory/:uid',
     }
 });
 
-app.delete('/education/subcategory/:uid', async (req, res, next) => {
+app.delete('/education/subcategory/:uid', authAdmin, async (req, res, next) => {
   try {
     await removeSubcategory(req.params.uid);
     res.send({ status: 'ok' });
@@ -152,6 +157,7 @@ app.get('/education/course/:uid', async (req, res) => {
 });
 
 app.post('/education/course',
+  authAdmin,
   courseValidationRules(),
   validate,
   async (req, res, next) => {
@@ -171,6 +177,7 @@ app.post('/education/course',
 });
 
 app.put('/education/course/:uid',
+  authAdmin,
   courseValidationRules(),
   validate,
   async (req, res, next) => {
@@ -189,7 +196,7 @@ app.put('/education/course/:uid',
     }
 });
 
-app.delete('/education/course/:uid', async (req, res, next) => {
+app.delete('/education/course/:uid', authAdmin, async (req, res, next) => {
   try {
     await removeCourse(req.params.uid);
     res.send({ status: 'ok' });

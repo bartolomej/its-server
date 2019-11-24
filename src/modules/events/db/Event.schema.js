@@ -15,6 +15,7 @@ module.exports = new EntitySchema({
     },
     creator: {
       type: 'varchar',
+      nullable: true
     },
     description: {
       type: 'varchar'

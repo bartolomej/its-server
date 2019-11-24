@@ -9,7 +9,7 @@ module.exports = function () {
   itsEventEmitter.on(
     'itsEvent',
     async (type, uid, description) => {
-      console.log('received event: ', type, uid, description);
+      console.log('received event: ', type, description);
       try {
         await db.saveEvent(new Event(type, uid, description))
       } catch (e) {

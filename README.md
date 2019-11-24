@@ -38,6 +38,9 @@ EMAIL_PASSWORD = <email-password>
 
 // firebase authentication config
 GOOGLE_APPLICATION_CREDENTIALS_FILE = firebase-admin.json
+
+// development configuration
+ENABLE_AUTH = false // set to false to disable firebase authentication
 ```
 
 ## Available Scripts

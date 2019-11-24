@@ -3,6 +3,7 @@ const mail = require('../email/service');
 const db = require('./db/repository');
 const User = require('./User');
 const auth = require('../../auth');
+const firebase = require('../auth/firebase');
 const winston = require('winston');
 
 /**
@@ -18,29 +19,32 @@ const logger = winston.createLogger({
   ]
 });
 
-/**
- * @description
- * Creates new user account.
- * @param password
- * @param username
- * @param birthDate
- * @param email
- * @returns {Promise<User>}
- */
+
 async function register (password, username, birthDate, email) {
-  let user = User.create(username, birthDate, email);
+  let user;
+  try {
+    // check if user has previously deactivated his/her account
+    const existingUser = await db.getByEmail(email);
+    if (existingUser.isDeactivated()) {
+      user = existingUser;
+      user.username = username;
+    }
+  } catch (e) {}
+  // if user hasn't previously registered account, create new account
+  if (!user) {
+    user = User.create(username, birthDate, email);
+  }
   try {
     // don't create firebase user yet
-    if (process.env.NODE_ENV !== 'production') {
-      await auth.createUser({ uid: user.uid, email, password })
-    }
+    const firebaseUser = await firebase.createUser({ uid: user.uid, email, password });
+    console.log('Firebase user created!', firebaseUser);
   } catch (e) {
     logger.log({
       level: 'error',
       message: `Firebase user creation failed`,
+      description: e.message
     });
-    // log the full error
-    console.log(e);
+    throw e;
   }
   // emit registration event
   emitEvent({
@@ -61,21 +65,44 @@ async function register (password, username, birthDate, email) {
   return user;
 }
 
-/**
- * @description
- * Updates whole user object. Returns updated user.
- * @param uid {string}
- * @param password {string}
- * @param username {string}
- * @param birthDate {Date}
- * @param email {string}
- * @param website {string}
- * @param interests {Array}
- * @param avatar {string}
- * @returns {Promise<User>}
- */
+async function registerAdmin (password, username, email) {
+  let user;
+  try {
+    // check if user has previously deactivated his/her account
+    const existingUser = await db.getByEmail(email);
+    if (existingUser.isDeactivated()) {
+      user = existingUser;
+      user.username = username;
+      user.role = 'ADMIN';
+    }
+  } catch (e) {}
+  // if user hasn't previously registered account, create new account
+  if (!user) {
+    user = User.createAdmin(username, email);
+  }
+  try {
+    // don't create firebase user yet
+    const firebaseAdmin = await firebase.createAdmin({ uid: user.uid, email, password });
+    console.log('Firebase admin created!', firebaseAdmin);
+  } catch (e) {
+    logger.log({
+      level: 'error',
+      message: `Firebase admin creation failed`,
+      description: e.message
+    });
+    throw e;
+  }
+  const savedUser = await db.save(user);
+  // emit registration event
+  emitEvent({
+    creatorId: user.uid,
+    type: 'ADMIN_REGISTERED',
+    description: `Admin ${user.uid} registered to its.`,
+  });
+  return savedUser;
+}
+
 async function update (uid, password, username, birthDate, email, website, interests, avatar) {
-  // TODO: update firebase user account
   let user = await db.getByUid(uid);
   user.username = username;
   user.birthDate = birthDate;
@@ -83,6 +110,18 @@ async function update (uid, password, username, birthDate, email, website, inter
   user.website = website;
   user.interests = interests;
   user.avatar = avatar;
+  // update firebase user account
+  try {
+    await firebase.updateUser({uid, email, password});
+  } catch (e) {
+    logger.log({
+      level: 'error',
+      message: `Firebase user creation failed`,
+      description: e.message
+    });
+    throw e;
+  }
+  // update database
   let updatedUser = await db.save(user);
   // emit update event
   emitEvent({
@@ -90,20 +129,23 @@ async function update (uid, password, username, birthDate, email, website, inter
     type: 'USER_UPDATED',
     description: `User ${user.uid} updated his/her profile.`,
   });
-  updatedUser.interests = updatedUser.interests && updatedUser.interests.split(',');
   return updatedUser;
 }
 
-/**
- * @description
- * Reactivates / removes user account.
- * @param uid {string}
- * @returns {Promise<void>}
- */
 async function deactivate (uid) {
   let user = await db.getByUid(uid);
-  user.status = 'DEACTIVATED';
-  user.deactivatedDate = new Date();
+  user.deactivate();
+  // delete firebase user
+  try {
+    await firebase.deleteUser(uid);
+  } catch (e) {
+    logger.log({
+      level: 'error',
+      message: `Firebase user deletion failed`,
+      description: e.message
+    });
+    throw e;
+  }
   await db.save(user);
   // emit deactivation event
   emitEvent({
@@ -123,6 +165,7 @@ async function deactivate (uid) {
 
 
 module.exports = {
+  registerAdmin,
   register,
   update,
   deactivate

@@ -1,3 +1,8 @@
+/**
+ * This is main initialization script for the app.
+ * Inits all required startup processes.
+ */
+
 async function initializeApp () {
   const app = require('express')();
 
@@ -5,7 +10,6 @@ async function initializeApp () {
   await require('./modules/events')();
   await require('./setup/db')();
   await require('./setup/server')(app);
-  await require('./setup/auth')(app);
 }
 
 // start ITS app

@@ -2,12 +2,8 @@ const getRepository = require('typeorm').getRepository;
 const { ConflictError, NotFoundError } = require('../../../errors');
 
 module.exports.save = async function (user) {
-  user.interests = user.interests &&
-    user.interests instanceof Array
-    ? user.interests.join(',')
-    : user.interests;
-  return await getRepository("User")
-    .save(user)
+  return deserialize(await getRepository("User")
+    .save(serialize(user))
     .catch(e => {
       if (e.code === 'ER_DUP_ENTRY') {
         let value = e.message.split("'")[1];
@@ -18,7 +14,7 @@ module.exports.save = async function (user) {
       } else {
         throw e;
       }
-    });
+    }));
 };
 
 module.exports.remove = async function (uid) {
@@ -43,18 +39,35 @@ module.exports.getByUid = async function (uid) {
     .where("u.uid = :uid", { uid })
     .getOne();
   if (!user) throw new NotFoundError(`User '${uid}' not found`);
-  if (user.interests) user.interests = user.interests.split(',');
-  return user;
+  return deserialize(user);
+};
+
+module.exports.getByEmail = async function (email) {
+  let user = await getRepository("User")
+    .createQueryBuilder("u")
+    .where("u.email = :email", { email })
+    .getOne();
+  if (!user) throw new NotFoundError(`User '${email}' not found`);
+  return deserialize(user);
 };
 
 module.exports.getAll = async function () {
   let users = await getRepository("User")
     .createQueryBuilder("u")
     .getMany();
-  users.forEach(u => {
-    if (u.interests) {
-      u.interests = u.interests.split(',')
-    }
-  });
-  return users;
+  return users.map(deserialize);
 };
+
+function deserialize (user) {
+  if (typeof user.interests === 'string') {
+    user.interests = user.interests.split(',');
+  }
+  return user;
+}
+
+function serialize (user) {
+  if (user.interests instanceof Array) {
+    user.interests = user.interests.join(',')
+  }
+  return user;
+}

@@ -3,6 +3,7 @@ const { body } = require('express-validator');
 const validate = require('../../validator');
 const { register, update, deactivate } = require('./service');
 const { getByUid, getAll } = require('./db/repository');
+const { authAdmin, authUser } = require('../../auth');
 
 
 // describe fields for HTTP request body
@@ -16,11 +17,12 @@ const userValidationRules = () => ([
 ]);
 
 
-app.get('/user', async (req, res, next) => {
+
+app.get('/user', authAdmin, async (req, res, next) => {
   res.send(await getAll());
 });
 
-app.get('/user/:uid', async (req, res, next) => {
+app.get('/user/:uid', authUser, async (req, res, next) => {
   res.send(await getByUid(req.params.uid));
 });
 

@@ -19,7 +19,8 @@ module.exports = new EntitySchema({
       unique: true
     },
     birthDate: {
-      type: 'varchar'
+      type: 'varchar',
+      nullable: true
     },
     email: {
       type: 'varchar',

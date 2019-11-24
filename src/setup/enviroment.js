@@ -1,4 +1,4 @@
-function validateEnvironmentVars () {
+function validateProductionVars () {
   const requiredVars = [
     'NODE_ENV',
     'PORT',
@@ -10,15 +10,30 @@ function validateEnvironmentVars () {
     'EMAIL_USER',
     'EMAIL_PASSWORD'
   ];
+  const unsetVars = getUnsetVars(requiredVars);
+  if (unsetVars.length > 0) {
+    throw new Error(`Unset environment vars: ${JSON.stringify(unsetVars, null, 4)}`);
+  }
+}
+
+function validateDevelopmentVars () {
+  const requiredVars = [
+    'ENABLE_AUTH',
+  ];
+  let unsetVars = getUnsetVars(requiredVars);
+  if (unsetVars.length > 0) {
+    throw new Error(`Unset development environment vars: ${JSON.stringify(unsetVars, null, 4)}`);
+  }
+}
+
+function getUnsetVars(requiredVars) {
   let unsetVars = [];
   for (let variable of requiredVars) {
     if (!(!!process.env[variable])) {
       unsetVars.push(variable);
     }
   }
-  if (unsetVars.length > 0) {
-    throw new Error(`Unset environment vars: ${JSON.stringify(unsetVars, null, 4)}`);
-  }
+  return unsetVars;
 }
 
 module.exports = async function () {
@@ -27,8 +42,9 @@ module.exports = async function () {
   require('dotenv').config({
     path: path.join(__dirname, '..', '..', '.env')
   });
-  // validate environment variables in development
+  // validate environment variables
+  validateProductionVars();
   if (process.env.NODE_ENV !== 'production') {
-    validateEnvironmentVars();
+    validateDevelopmentVars();
   }
 };

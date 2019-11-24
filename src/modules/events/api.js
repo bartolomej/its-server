@@ -1,8 +1,9 @@
 const app = require('express').Router();
 const db = require('./db/repository');
+const { authAdmin } = require('../../auth');
 
 
-app.get('/event', async (req, res, next) => {
+app.get('/event', authAdmin, async (req, res, next) => {
   if (req.query.hasOwnProperty('type')) {
     return res.send(await db.getEventByType(req.query.type));
   }
