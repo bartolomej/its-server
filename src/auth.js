@@ -1,4 +1,4 @@
-const { authenticate, ROLES } = require("./modules/auth/firebase");
+const { authenticate, ROLES } = require("./modules/admin/firebase");
 const { AuthorizationError } = require("./errors");
 
 

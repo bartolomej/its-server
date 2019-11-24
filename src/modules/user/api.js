@@ -7,8 +7,17 @@ const { authAdmin, authUser } = require('../../auth');
 
 
 // describe fields for HTTP request body
-const userValidationRules = () => ([
+const userPostValidationRules = () => ([
   body('password').isString(),
+  body('username').isString(),
+  body('birthDate').isString(),
+  body('email').isEmail(),
+  body('website').isString().optional(),
+  body('interests').isArray().optional()
+]);
+
+const userPutValidationRules = () => ([
+  body('password').isString().optional(),
   body('username').isString(),
   body('birthDate').isString(),
   body('email').isEmail(),
@@ -27,7 +36,7 @@ app.get('/user/:uid', authUser, async (req, res, next) => {
 });
 
 app.post('/user',
-  userValidationRules(),
+  userPostValidationRules(),
   validate,
   async (req, res, next) => {
     try {
@@ -43,7 +52,7 @@ app.post('/user',
 });
 
 app.put('/user/:uid',
-  userValidationRules(),
+  userPutValidationRules(),
   validate,
   async (req, res, next) => {
     try {

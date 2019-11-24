@@ -3,7 +3,7 @@ const mail = require('../email/service');
 const db = require('./db/repository');
 const User = require('./User');
 const auth = require('../../auth');
-const firebase = require('../auth/firebase');
+const firebase = require('../admin/firebase');
 const winston = require('winston');
 
 /**

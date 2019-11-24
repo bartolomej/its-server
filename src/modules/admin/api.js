@@ -13,16 +13,16 @@ const adminValidationRules = () => ([
 ]);
 
 
-app.get('/auth/user', authAdmin, async (req, res, next) => {
+app.get('/admin/user', authAdmin, async (req, res, next) => {
   res.send(await getUsers());
 });
 
-app.get('/auth/user/:uid', authAdmin, async (req, res, next) => {
+app.get('/admin/user/:uid', authAdmin, async (req, res, next) => {
   res.send(await getUser(req.params.uid));
 });
 
 // TODO: restrict admin registration in future versions
-app.post('/auth/admin',
+app.post('/admin/admin',
   adminValidationRules(),
   validate,
   async (req, res, next) => {
