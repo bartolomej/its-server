@@ -12,13 +12,17 @@ const ROLES = {
  * Initialises firebase admin gateway.
  * In development provide file with firebase admin credentials.
  */
-const cert = process.env.NODE_ENV === 'production'
-  // in production parse .json object from env variable
-  ? JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS)
-  // in development read .json file
-  : require(`../../../${process.env.GOOGLE_APPLICATION_CREDENTIALS_FILE}`);
+function getCert () {
+  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    // parse .json object from env variable if available
+    return JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+  } else {
+    // in development read .json file
+    return require(`../../../${process.env.GOOGLE_APPLICATION_CREDENTIALS_FILE}`);
+  }
+}
 
-admin.initializeApp({ credential: admin.credential.cert(cert) });
+admin.initializeApp({ credential: admin.credential.cert(getCert()) });
 
 async function authenticate (accessToken, role) {
   const token = await admin.auth().verifyIdToken(accessToken);

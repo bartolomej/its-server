@@ -31,7 +31,8 @@ function typeormConfig () {
     extra: { insecureAuth: true },
     entities: [
       path.join(__dirname, '..', 'modules', 'education', 'db', '*.schema.js'),
-      path.join(__dirname, '..', 'modules', 'email', 'db/*.schema.js'),
+      // TODO: add Template.schema.js
+      path.join(__dirname, '..', 'modules', 'email', 'db/Email.schema.js'),
       path.join(__dirname, '..', 'modules', 'user', 'db/*.schema.js'),
       path.join(__dirname, '..', 'modules', 'events', 'db/*.schema.js'),
     ]
